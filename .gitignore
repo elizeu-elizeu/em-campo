@@ -41,6 +41,9 @@ yarn-error.log*
 
 # artefatos de ferramentas locais
 /.playwright-mcp/
+/*.png
+/*.jpeg
+/*.jpg
 
 # vercel
 .vercel
