@@ -4,43 +4,36 @@ import { login } from "@/lib/actions";
 // Cena de fundo: campo em navy monocromático com linhas gravadas radiantes
 // (referência editorial traduzida para a identidade Uniforme).
 function FundoCampo() {
-  const raiosPrata = [
-    [1080, 180, 0, 0],
-    [1080, 180, 0, 140],
-    [1080, 180, 0, 320],
-    [1080, 180, 160, 0],
-    [1080, 180, 400, 0],
-    [1080, 180, 640, 0],
-    [1080, 180, 880, 0],
-    [1080, 180, 1440, 40],
-    [1080, 180, 1440, 340],
-    [1080, 180, 1320, 900],
-    [1080, 180, 1440, 620],
-    [1080, 180, 40, 560],
-  ];
-  const raiosLaranja = [
-    [1080, 180, 240, 0],
-    [1080, 180, 0, 230],
-    [1080, 180, 1440, 180],
-    [1080, 180, 1160, 900],
+  // Traços irregulares (origem e opacidade variadas) — luz, não gravura mecânica
+  const raios: [number, number, number, number, number][] = [
+    [1078, 176, 0, 60, 0.09],
+    [1082, 184, 210, 0, 0.05],
+    [1076, 180, 620, 0, 0.08],
+    [1084, 178, 1440, 90, 0.04],
+    [1080, 182, 1440, 420, 0.07],
+    [1074, 186, 60, 480, 0.05],
   ];
   return (
     <div className="absolute inset-0 overflow-hidden" aria-hidden>
       <div className="absolute inset-0 bg-gradient-to-b from-[#1c3a63] via-[#132a4a] to-[#0a1a2e]" />
+      {/* entardecer: brilho quente atrás das colinas */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 38% at 30% 74%, rgb(249 115 22 / 0.22), transparent 65%)",
+        }}
+      />
       <svg
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMid slice"
       >
         <g strokeWidth="1" fill="none">
-          {raiosPrata.map(([x1, y1, x2, y2]) => (
-            <line key={`p${x2}-${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ffffff" strokeOpacity="0.07" />
+          {raios.map(([x1, y1, x2, y2, o]) => (
+            <line key={`r${x2}-${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#ffffff" strokeOpacity={o} />
           ))}
-          {raiosLaranja.map(([x1, y1, x2, y2]) => (
-            <line key={`l${x2}-${y2}`} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#f97316" strokeOpacity="0.2" />
-          ))}
-          <circle cx="1080" cy="180" r="44" stroke="#ffffff" strokeOpacity="0.14" />
-          <circle cx="1080" cy="180" r="12" fill="#f97316" fillOpacity="0.35" stroke="none" />
+          <circle cx="1080" cy="180" r="11" fill="#f97316" fillOpacity="0.3" stroke="none" />
         </g>
         <path
           d="M0,520 C240,468 480,562 720,532 C960,502 1200,572 1440,538 L1440,900 L0,900 Z"
@@ -93,16 +86,36 @@ export default async function LoginPage({
           <br />
           sai do campo
           <br />
-          <span className="text-laranja">pronto.</span>
+          <span className="relative inline-block text-laranja">
+            pronto.
+            {/* sublinhado à mão — o único gesto desenhado da tela */}
+            <svg
+              viewBox="0 0 220 14"
+              className="absolute -bottom-2 left-0 w-full"
+              aria-hidden
+              fill="none"
+            >
+              <path
+                d="M4 10 C 48 4, 96 12, 148 7 C 178 4.5, 200 8, 216 5"
+                stroke="#f97316"
+                strokeWidth="5"
+                strokeLinecap="round"
+                opacity="0.85"
+              />
+            </svg>
+          </span>
         </h1>
 
         <form
           action={login}
-          className="w-full max-w-sm space-y-4 rounded-2xl bg-[#f4f5f2] p-6 shadow-2xl shadow-black/40 sm:p-7 lg:w-[380px] lg:flex-none"
+          className="w-full max-w-sm space-y-4 rounded-2xl bg-[#f7f4ec] p-6 shadow-2xl shadow-black/40 sm:p-7 lg:w-[380px] lg:flex-none"
         >
-          <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-texto-sec">
-            Acesso da equipe
-          </p>
+          <div>
+            <p className="font-mao -rotate-1 text-2xl text-marinho">bom te ver por aqui</p>
+            <p className="mt-0.5 text-[11px] font-bold uppercase tracking-[0.15em] text-texto-sec">
+              Acesso da equipe
+            </p>
+          </div>
 
           {erro === "1" && (
             <p className="rounded-md bg-alerta-bg-suave p-3 text-sm text-alerta">

@@ -142,6 +142,11 @@ a.cartao:hover {
   white-space: nowrap;
 }
 
+/* Manuscrita — usar com muita parcimônia (uma anotação por tela, no máximo) */
+.font-mao {
+  font-family: var(--font-caveat), cursive;
+}
+
 /* Header com profundidade sutil */
 .header-app {
   background: linear-gradient(180deg, #1a3760 0%, #132a4a 100%);

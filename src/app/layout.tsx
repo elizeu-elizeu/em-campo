@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, Manrope } from "next/font/google";
+import { Archivo, Caveat, Manrope } from "next/font/google";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -9,6 +9,12 @@ const archivo = Archivo({
 
 const manrope = Manrope({
   variable: "--font-manrope",
+  subsets: ["latin"],
+});
+
+// Manuscrita — só para anotações humanas (login, recompensas)
+const caveat = Caveat({
+  variable: "--font-caveat",
   subsets: ["latin"],
 });
 
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${archivo.variable} ${manrope.variable} h-full antialiased`}
+      className={`${archivo.variable} ${manrope.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
