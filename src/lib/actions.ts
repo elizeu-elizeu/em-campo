@@ -6,17 +6,36 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "./db";
+import { extPorConteudo } from "./imagem";
 import { getSession, requireUser } from "./session";
 import { TIPOS_CAMPO, type TipoCampo } from "./tipos";
+
+// Proteção contra força bruta no login.
+// ponytail: contador em memória, por processo — trocar por tabela se rodar múltiplas instâncias
+const tentativasLogin = new Map<string, { falhas: number; bloqueadoAte: number }>();
+const MAX_FALHAS = 5;
+const BLOQUEIO_MS = 15 * 60 * 1000;
+// Compara contra hash dummy quando o e-mail não existe — sem diferença de timing
+const HASH_DUMMY = bcrypt.hashSync("senha-que-nunca-bate", 10);
 
 export async function login(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const senha = String(formData.get("senha") ?? "");
 
+  const tentativa = tentativasLogin.get(email);
+  if (tentativa && tentativa.bloqueadoAte > Date.now()) redirect("/login?erro=bloqueado");
+
   const user = email && senha ? await prisma.user.findUnique({ where: { email } }) : null;
-  if (!user || !user.ativo || !bcrypt.compareSync(senha, user.senha)) {
+  const senhaOk = await bcrypt.compare(senha, user?.senha ?? HASH_DUMMY);
+  if (!user || !user.ativo || !senhaOk) {
+    const falhas = (tentativa?.falhas ?? 0) + 1;
+    tentativasLogin.set(email, {
+      falhas,
+      bloqueadoAte: falhas >= MAX_FALHAS ? Date.now() + BLOQUEIO_MS : 0,
+    });
     redirect("/login?erro=1");
   }
+  tentativasLogin.delete(email);
 
   const session = await getSession();
   session.userId = user.id;
@@ -146,12 +165,6 @@ export async function moverCampo(formData: FormData) {
 
 // ---------- Empresa (gestor) ----------
 
-const EXT_LOGO: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-};
-
 export async function salvarEmpresa(formData: FormData) {
   await requireUser("GESTOR");
   const nome = String(formData.get("nome") ?? "").trim().slice(0, 200);
@@ -161,12 +174,15 @@ export async function salvarEmpresa(formData: FormData) {
   let logo: string | undefined;
   const arquivo = formData.get("logo");
   if (arquivo instanceof File && arquivo.size > 0) {
-    const ext = EXT_LOGO[arquivo.type];
-    if (!ext || arquivo.size > 2 * 1024 * 1024) redirect("/painel/empresa?erro=logo");
+    if (arquivo.size > 2 * 1024 * 1024) redirect("/painel/empresa?erro=logo");
+    // Tipo verificado pelos bytes reais, não pelo Content-Type declarado
+    const conteudo = Buffer.from(await arquivo.arrayBuffer());
+    const ext = extPorConteudo(conteudo);
+    if (!ext) redirect("/painel/empresa?erro=logo");
     logo = `${crypto.randomUUID()}.${ext}`;
     const dir = path.join(process.cwd(), "public", "uploads");
     await mkdir(dir, { recursive: true });
-    await writeFile(path.join(dir, logo), Buffer.from(await arquivo.arrayBuffer()));
+    await writeFile(path.join(dir, logo), conteudo);
   }
 
   const dados = {
@@ -209,11 +225,12 @@ export async function criarUsuario(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase().slice(0, 200);
   const senha = String(formData.get("senha") ?? "");
   const papel = String(formData.get("papel") ?? "");
-  if (!nome || !email.includes("@") || senha.length < 6 || !["TECNICO", "GESTOR"].includes(papel)) {
+  if (!nome || !email.includes("@") || senha.length < 8 || !["TECNICO", "GESTOR"].includes(papel)) {
     redirect("/painel/usuarios?erro=dados");
   }
+  const hash = await bcrypt.hash(senha, 10);
   try {
-    await prisma.user.create({ data: { nome, email, senha: bcrypt.hashSync(senha, 10), papel } });
+    await prisma.user.create({ data: { nome, email, senha: hash, papel } });
   } catch {
     redirect("/painel/usuarios?erro=email"); // e-mail já cadastrado
   }
@@ -247,8 +264,8 @@ export async function redefinirSenha(formData: FormData) {
   await requireUser("GESTOR");
   const id = Number(formData.get("id"));
   const senha = String(formData.get("senha") ?? "");
-  if (!Number.isInteger(id) || senha.length < 6) redirect("/painel/usuarios?erro=dados");
-  await prisma.user.update({ where: { id }, data: { senha: bcrypt.hashSync(senha, 10) } });
+  if (!Number.isInteger(id) || senha.length < 8) redirect("/painel/usuarios?erro=dados");
+  await prisma.user.update({ where: { id }, data: { senha: await bcrypt.hash(senha, 10) } });
   revalidatePath("/painel/usuarios");
 }
 

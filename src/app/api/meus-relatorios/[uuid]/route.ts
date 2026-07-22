@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { getUsuarioAtivo } from "@/lib/session";
 
 // Detalhe de um relatório do técnico logado — usado para ver enviado e corrigir devolvido (online).
 export async function GET(_req: Request, { params }: { params: Promise<{ uuid: string }> }) {
-  const session = await getSession();
-  if (!session.userId) return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
-  if (session.papel !== "TECNICO") return NextResponse.json({ error: "Apenas técnicos" }, { status: 403 });
+  const user = await getUsuarioAtivo();
+  if (!user) return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
+  if (user.papel !== "TECNICO") return NextResponse.json({ error: "Apenas técnicos" }, { status: 403 });
 
   const { uuid } = await params;
   const r = await prisma.relatorio.findUnique({
@@ -17,7 +17,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ uuid: s
       fotos: true,
     },
   });
-  if (!r || r.tecnicoId !== session.userId)
+  if (!r || r.tecnicoId !== user.userId)
     return NextResponse.json({ error: "Relatório não encontrado" }, { status: 404 });
 
   return NextResponse.json({

@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
-import { getSession } from "@/lib/session";
+import { getUsuarioAtivo } from "@/lib/session";
 
 export default async function Home() {
-  const session = await getSession();
-  if (!session.userId) redirect("/login");
-  redirect(session.papel === "GESTOR" ? "/painel" : "/campo");
+  const user = await getUsuarioAtivo();
+  if (!user) redirect("/login");
+  redirect(user.papel === "GESTOR" ? "/painel" : "/campo");
 }

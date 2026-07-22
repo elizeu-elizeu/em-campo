@@ -18,9 +18,14 @@ export default async function LoginPage({
           <p className="text-sm text-slate-500">Entre com a sua conta</p>
         </div>
 
-        {erro && (
+        {erro === "1" && (
           <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">
             E-mail ou senha inválidos.
+          </p>
+        )}
+        {erro === "bloqueado" && (
+          <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">
+            Muitas tentativas de acesso. Aguarde 15 minutos e tente novamente.
           </p>
         )}
 

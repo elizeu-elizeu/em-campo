@@ -1,6 +1,6 @@
-import { logout } from "@/lib/actions";
-import { requireUser } from "@/lib/session";
+import BotaoSair from "@/components/BotaoSair";
 import NavPainel from "@/components/NavPainel";
+import { requireUser } from "@/lib/session";
 
 export default async function PainelLayout({ children }: { children: React.ReactNode }) {
   const session = await requireUser("GESTOR");
@@ -15,9 +15,7 @@ export default async function PainelLayout({ children }: { children: React.React
           </div>
           <div className="flex items-center gap-3 text-sm">
             <span className="text-slate-400">{session.nome}</span>
-            <form action={logout}>
-              <button className="underline">Sair</button>
-            </form>
+            <BotaoSair />
           </div>
         </div>
       </header>

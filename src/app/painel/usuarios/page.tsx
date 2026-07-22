@@ -13,14 +13,14 @@ export default async function Usuarios({ searchParams }: { searchParams: Promise
 
       {erro && (
         <p className="rounded-md bg-red-50 p-3 text-sm text-red-700">
-          {erro === "email" ? "Este e-mail já está cadastrado." : "Preencha nome, e-mail válido e senha com 6+ caracteres."}
+          {erro === "email" ? "Este e-mail já está cadastrado." : "Preencha nome, e-mail válido e senha com 8+ caracteres."}
         </p>
       )}
 
       <form action={criarUsuario} className="grid gap-2 rounded-xl bg-white p-3 shadow-sm sm:grid-cols-[2fr_2fr_1fr_1fr_auto]">
         <input type="text" name="nome" required placeholder="Nome" className="rounded-md border border-slate-300 p-2 text-sm" />
         <input type="email" name="email" required placeholder="E-mail" className="rounded-md border border-slate-300 p-2 text-sm" />
-        <input type="password" name="senha" required minLength={6} placeholder="Senha" className="rounded-md border border-slate-300 p-2 text-sm" />
+        <input type="password" name="senha" required minLength={8} placeholder="Senha" className="rounded-md border border-slate-300 p-2 text-sm" />
         <select name="papel" className="rounded-md border border-slate-300 p-2 text-sm">
           <option value="TECNICO">Técnico</option>
           <option value="GESTOR">Gestor</option>
@@ -65,7 +65,7 @@ export default async function Usuarios({ searchParams }: { searchParams: Promise
                           type="password"
                           name="senha"
                           required
-                          minLength={6}
+                          minLength={8}
                           placeholder="Nova senha"
                           className="w-28 rounded-md border border-slate-300 p-1 text-xs"
                         />

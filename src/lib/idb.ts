@@ -61,3 +61,11 @@ export async function listarRascunhos(): Promise<Rascunho[]> {
 export async function removerRascunho(uuid: string) {
   await (await db()).delete("rascunhos", uuid);
 }
+
+/** Fecha a conexão — necessário antes de deleteDatabase (logout). */
+export async function fecharDb() {
+  if (dbPromise) {
+    (await dbPromise).close();
+    dbPromise = null;
+  }
+}

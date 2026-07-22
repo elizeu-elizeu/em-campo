@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { getUsuarioAtivo } from "@/lib/session";
 import { TIPOS_CAMPO, type Resposta, type TipoCampo } from "@/lib/tipos";
 
 const UUID_RE = /^[0-9a-f-]{8,64}$/i;
+const TAMANHO_MAX_RESPOSTAS = 2_000_000; // ~2MB serializado — protege banco e disco
 
-function valorValido(v: unknown): boolean {
-  if (v === null || typeof v === "boolean") return true;
+function valorValido(v: unknown, tipo: TipoCampo): boolean {
+  if (v === null || v === "" || typeof v === "boolean") return true;
   if (typeof v === "number") return Number.isFinite(v);
-  if (typeof v === "string") return v.length <= 200_000; // assinatura em dataURL cabe aqui
+  if (typeof v === "string") {
+    // Assinatura precisa ser imagem embutida — URL externa viraria request ao
+    // servidor de terceiros aberto na tela do gestor.
+    if (tipo === "ASSINATURA") return v.length <= 200_000 && v.startsWith("data:image/png;base64,");
+    return v.length <= 10_000;
+  }
   if (Array.isArray(v)) return v.length <= 50 && v.every((x) => typeof x === "string" && x.length <= 500);
   return false;
 }
@@ -16,9 +22,9 @@ function valorValido(v: unknown): boolean {
 // Recebe um relatório COMPLETO do aparelho do técnico. Idempotente por uuid:
 // reenviar o mesmo relatório (retry de sync, correção de devolvido) faz upsert.
 export async function POST(req: Request) {
-  const session = await getSession();
-  if (!session.userId) return new NextResponse("Não autenticado", { status: 401 });
-  if (session.papel !== "TECNICO") return new NextResponse("Apenas técnicos enviam relatórios", { status: 403 });
+  const user = await getUsuarioAtivo();
+  if (!user) return new NextResponse("Não autenticado", { status: 401 });
+  if (user.papel !== "TECNICO") return new NextResponse("Apenas técnicos enviam relatórios", { status: 403 });
 
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") return new NextResponse("Corpo inválido", { status: 400 });
@@ -40,7 +46,7 @@ export async function POST(req: Request) {
       typeof rotulo !== "string" ||
       rotulo.length > 500 ||
       !TIPOS_CAMPO.includes(tipo as TipoCampo) ||
-      !valorValido(valor) ||
+      !valorValido(valor, tipo as TipoCampo) ||
       (obs != null && typeof obs !== "string")
     ) {
       return new NextResponse("resposta inválida", { status: 400 });
@@ -55,6 +61,10 @@ export async function POST(req: Request) {
     });
   }
 
+  const respostasJsonPreview = JSON.stringify(limpas);
+  if (respostasJsonPreview.length > TAMANHO_MAX_RESPOSTAS)
+    return new NextResponse("Relatório grande demais", { status: 413 });
+
   const [modelo, cliente, existente] = await Promise.all([
     prisma.modelo.findUnique({ where: { id: modeloId } }),
     prisma.cliente.findUnique({ where: { id: clienteId } }),
@@ -62,19 +72,19 @@ export async function POST(req: Request) {
   ]);
   if (!modelo) return new NextResponse("Modelo não existe mais — fale com o gestor", { status: 400 });
   if (!cliente) return new NextResponse("Cliente não existe mais — fale com o gestor", { status: 400 });
-  if (existente && existente.tecnicoId !== session.userId)
+  if (existente && existente.tecnicoId !== user.userId)
     return new NextResponse("Relatório pertence a outro técnico", { status: 403 });
   if (existente && existente.status === "APROVADO")
     return new NextResponse("Relatório já aprovado — não pode ser alterado", { status: 409 });
 
-  const respostasJson = JSON.stringify(limpas);
+  const respostasJson = respostasJsonPreview;
   await prisma.relatorio.upsert({
     where: { uuid },
     create: {
       uuid,
       modeloId,
       clienteId,
-      tecnicoId: session.userId,
+      tecnicoId: user.userId,
       data: dataDate,
       status: "ENVIADO",
       respostas: respostasJson,

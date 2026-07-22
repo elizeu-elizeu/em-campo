@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { logout } from "@/lib/actions";
+import BotaoSair from "@/components/BotaoSair";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 import AutoSync from "./AutoSync";
@@ -22,9 +22,7 @@ export default async function CampoLayout({ children }: { children: React.ReactN
         </Link>
         <div className="flex items-center gap-3">
           <AutoSync />
-          <form action={logout}>
-            <button className="text-sm underline">Sair</button>
-          </form>
+          <BotaoSair />
         </div>
       </header>
       <main className="mx-auto max-w-lg p-4 pb-28">{children}</main>

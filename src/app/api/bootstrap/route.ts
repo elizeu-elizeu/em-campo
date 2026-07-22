@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
-import { getSession } from "@/lib/session";
+import { getUsuarioAtivo } from "@/lib/session";
 
 // Catálogo que o app do técnico guarda no aparelho para funcionar offline.
 export async function GET() {
-  const session = await getSession();
-  if (!session.userId) return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
+  const user = await getUsuarioAtivo();
+  if (!user) return NextResponse.json({ error: "Não autenticado" }, { status: 401 });
 
   const [modelos, clientes, config] = await Promise.all([
     prisma.modelo.findMany({
