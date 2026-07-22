@@ -7,12 +7,12 @@ export default async function Empresa({ searchParams }: { searchParams: Promise<
   const { erro } = await searchParams;
   const empresa = await prisma.empresa.findUnique({ where: { id: 1 } });
 
-  const input = "w-full rounded-md border border-slate-300 p-2 text-sm";
+  const input = "campo-input w-full p-2 text-sm";
 
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div>
-        <h1 className="text-xl font-bold text-slate-800">Dados da empresa</h1>
+        <h1 className="text-xl font-bold tracking-tight text-marinho">Dados da empresa</h1>
         <p className="text-sm text-slate-500">
           Aparecem no cabeçalho de todos os relatórios e PDFs — é a sua marca diante do cliente.
         </p>
@@ -27,7 +27,7 @@ export default async function Empresa({ searchParams }: { searchParams: Promise<
         </p>
       )}
 
-      <form action={salvarEmpresa} className="space-y-3 rounded-xl bg-white p-5 shadow-sm">
+      <form action={salvarEmpresa} className="cartao space-y-3 p-5">
         <label className="block">
           <span className="mb-1 block text-sm font-medium text-slate-700">Nome da empresa *</span>
           <input type="text" name="nome" required defaultValue={empresa?.nome ?? ""} className={input} />
@@ -62,7 +62,7 @@ export default async function Empresa({ searchParams }: { searchParams: Promise<
           )}
           <input type="file" name="logo" accept="image/png,image/jpeg,image/webp" className="text-sm" />
         </div>
-        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Salvar</button>
+        <button className="btn-secundario rounded-md px-4 py-2 text-sm">Salvar</button>
       </form>
     </div>
   );

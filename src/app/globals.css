@@ -44,12 +44,118 @@ h3 {
 
 /* Assinatura da direção: fita hi-vis diagonal (laranja/prata) sob o header */
 .fita-hivis {
-  height: 6px;
+  height: 5px;
   background: repeating-linear-gradient(
     -45deg,
-    #f97316 0 14px,
-    #d7dde6 14px 28px
+    #f97316 0 12px,
+    #cfd6e0 12px 24px
   );
+}
+
+/* ---------- Polimento premium ---------- */
+
+::selection {
+  background: rgb(249 115 22 / 0.22);
+}
+
+:where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-marinho);
+  outline-offset: 2px;
+}
+
+/* Classes de componente em @layer components: utilities do Tailwind
+   (ex.: border-l-4 de status nos cards) têm precedência sobre elas. */
+@layer components {
+/* Superfície padrão: sombra em camadas tintada de navy (não cinza) */
+.cartao {
+  background: #fff;
+  border: 1px solid rgb(19 42 74 / 0.08);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 2px rgb(19 42 74 / 0.05),
+    0 6px 16px -8px rgb(19 42 74 / 0.1);
+}
+a.cartao {
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+a.cartao:hover {
+  border-color: rgb(19 42 74 / 0.18);
+  box-shadow:
+    0 2px 4px rgb(19 42 74 / 0.06),
+    0 12px 28px -10px rgb(19 42 74 / 0.16);
+}
+
+.btn-primario {
+  background: var(--color-laranja);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 8px 20px -8px rgb(249 115 22 / 0.55);
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.05s ease;
+}
+.btn-primario:hover {
+  background: var(--color-laranja-escuro);
+}
+.btn-primario:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 10px -6px rgb(249 115 22 / 0.5);
+}
+
+.btn-secundario {
+  background: var(--color-marinho);
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+}
+.btn-secundario:hover {
+  background: #1b3a63;
+}
+
+.campo-input {
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.campo-input:focus {
+  outline: none;
+  border-color: var(--color-marinho);
+  box-shadow: 0 0 0 3px rgb(19 42 74 / 0.12);
+}
+
+/* Etiqueta de status: caixa alta de placa de inspeção */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Header com profundidade sutil */
+.header-app {
+  background: linear-gradient(180deg, #1a3760 0%, #132a4a 100%);
+  box-shadow: 0 2px 10px rgb(19 42 74 / 0.25);
+}
+} /* fim @layer components */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primario,
+  .btn-secundario,
+  a.cartao,
+  .campo-input {
+    transition: none;
+  }
 }
 
 @media print {

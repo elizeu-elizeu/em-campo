@@ -30,7 +30,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
 
   if (naoEncontrado) {
     return (
-      <div className="rounded-xl bg-white p-4 text-slate-600 shadow-sm">
+      <div className="cartao p-4 text-slate-600">
         Rascunho não encontrado — provavelmente já foi enviado.{" "}
         <Link href="/campo" className="font-medium text-marinho-claro underline">
           Voltar
@@ -42,7 +42,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
 
   if (rascunho.estado === "PENDENTE") {
     return (
-      <div className="space-y-3 rounded-xl bg-white p-4 shadow-sm">
+      <div className="cartao space-y-3 p-4">
         <p className="text-slate-700">
           Este relatório está <strong>aguardando envio</strong> — será sincronizado assim que houver
           conexão.
@@ -92,7 +92,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="text-lg font-bold text-slate-800">{rascunho.modelo.nome}</h1>
+        <h1 className="text-lg font-bold tracking-tight text-marinho">{rascunho.modelo.nome}</h1>
         <p className="text-sm text-slate-500">{rascunho.clienteNome}</p>
       </div>
 
@@ -140,7 +140,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
       <div className="space-y-3 pt-2">
         <button
           onClick={enviar}
-          className="w-full rounded-xl bg-laranja p-4 text-lg font-semibold text-white active:bg-laranja-escuro"
+          className="btn-primario w-full rounded-xl p-4 text-lg"
         >
           Enviar relatório
         </button>

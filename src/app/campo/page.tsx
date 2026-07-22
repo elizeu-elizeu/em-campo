@@ -52,27 +52,27 @@ export default function CampoHome() {
     <div className="space-y-6">
       <Link
         href="/campo/novo"
-        className="block rounded-xl bg-laranja p-4 text-center text-lg font-semibold text-white shadow active:bg-laranja-escuro"
+        className="btn-primario block rounded-xl p-4 text-center text-lg"
       >
         + Novo relatório
       </Link>
 
       {rascunhos.length > 0 && (
         <section>
-          <h2 className="mb-2 text-sm font-semibold uppercase text-slate-500">No aparelho</h2>
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.12em] text-texto-sec">No aparelho</h2>
           <ul className="space-y-2">
             {rascunhos.map((r) => (
               <li key={r.uuid}>
                 <Link
                   href={`/campo/rascunho/${r.uuid}`}
-                  className={`block rounded-xl border-l-4 bg-white p-4 shadow-sm active:bg-slate-50 ${
+                  className={`cartao block border-l-4 p-4 ${
                     r.estado === "PENDENTE" ? "border-espera" : "border-slate-300"
                   }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-slate-800">{r.modelo.nome}</span>
                     <span
-                      className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
+                      className={`chip ${
                         r.estado === "PENDENTE" ? "bg-espera-bg text-espera" : "bg-slate-200 text-slate-700"
                       }`}
                     >
@@ -91,22 +91,23 @@ export default function CampoHome() {
       )}
 
       <section>
-        <h2 className="mb-2 text-sm font-semibold uppercase text-slate-500">Enviados</h2>
+        <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.12em] text-texto-sec">Enviados</h2>
         {enviados.length === 0 ? (
-          <p className="rounded-xl bg-white p-4 text-sm text-slate-500 shadow-sm">
-            Nenhum relatório enviado ainda.
-          </p>
+          <div className="cartao p-4 text-sm text-slate-500">
+            <p>Nenhum relatório enviado ainda.</p>
+            <p className="mt-1 text-xs text-slate-400">Toque em + Novo relatório para começar.</p>
+          </div>
         ) : (
           <ul className="space-y-2">
             {enviados.map((r) => (
               <li key={r.uuid}>
                 <Link
                   href={`/campo/relatorio/${r.uuid}`}
-                  className={`block rounded-xl border-l-4 bg-white p-4 shadow-sm active:bg-slate-50 ${BORDA[r.status]}`}
+                  className={`cartao block border-l-4 p-4 ${BORDA[r.status]}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-slate-800">{r.modeloNome}</span>
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${CHIP[r.status]}`}>
+                    <span className={`chip ${CHIP[r.status]}`}>
                       {NOME_STATUS[r.status]}
                     </span>
                   </div>

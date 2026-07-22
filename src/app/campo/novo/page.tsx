@@ -50,7 +50,7 @@ export default function NovoRelatorio() {
 
   if (semCatalogo) {
     return (
-      <p className="rounded-xl bg-white p-4 text-slate-600 shadow-sm">
+      <p className="cartao p-4 text-slate-600">
         Ainda não há modelos no aparelho. Conecte-se à internet uma vez para baixá-los
         (e peça ao gestor para cadastrar um modelo, se ainda não houver).
       </p>
@@ -59,14 +59,14 @@ export default function NovoRelatorio() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-lg font-bold text-slate-800">Novo relatório</h1>
+      <h1 className="text-lg font-bold tracking-tight text-marinho">Novo relatório</h1>
 
       <label className="block">
         <span className="mb-1 block text-sm font-medium text-slate-700">Tipo de serviço</span>
         <select
           value={modeloId}
           onChange={(e) => setModeloId(e.target.value ? Number(e.target.value) : "")}
-          className="w-full rounded-md border border-slate-300 bg-white p-3 text-base"
+          className="campo-input w-full p-3 text-base"
         >
           <option value="">Escolha o modelo…</option>
           {modelos.map((m) => (
@@ -82,7 +82,7 @@ export default function NovoRelatorio() {
         <select
           value={clienteId}
           onChange={(e) => setClienteId(e.target.value ? Number(e.target.value) : "")}
-          className="w-full rounded-md border border-slate-300 bg-white p-3 text-base"
+          className="campo-input w-full p-3 text-base"
         >
           <option value="">Escolha o cliente…</option>
           {clientes.map((c) => (
@@ -96,7 +96,7 @@ export default function NovoRelatorio() {
       <button
         onClick={criar}
         disabled={!modeloId || !clienteId}
-        className="w-full rounded-xl bg-laranja p-4 text-lg font-semibold text-white disabled:opacity-40 active:bg-laranja-escuro"
+        className="btn-primario w-full rounded-xl p-4 text-lg disabled:opacity-40"
       >
         Começar a preencher
       </button>

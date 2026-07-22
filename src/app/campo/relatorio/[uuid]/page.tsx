@@ -74,7 +74,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
 
   if (erro) {
     return (
-      <div className="rounded-xl bg-white p-4 text-slate-600 shadow-sm">
+      <div className="cartao p-4 text-slate-600">
         {erro}{" "}
         <Link href="/campo" className="font-medium text-marinho-claro underline">
           Voltar
@@ -147,7 +147,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
     return (
       <div className="space-y-5">
         <div>
-          <h1 className="text-lg font-bold text-slate-800">Corrigir: {det.modeloNome}</h1>
+          <h1 className="text-lg font-bold tracking-tight text-marinho">Corrigir: {det.modeloNome}</h1>
           {det.comentarioGestor && (
             <p className="mt-1 rounded-md bg-alerta-bg-suave p-3 text-sm text-alerta">
               Comentário do gestor: {det.comentarioGestor}
@@ -169,7 +169,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
         <button
           onClick={salvarCorrecao}
           disabled={salvando}
-          className="w-full rounded-xl bg-laranja p-4 text-lg font-semibold text-white disabled:opacity-40 active:bg-laranja-escuro"
+          className="btn-primario w-full rounded-xl p-4 text-lg disabled:opacity-40"
         >
           {salvando ? "Enviando…" : "Reenviar relatório"}
         </button>
@@ -180,7 +180,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-lg font-bold text-slate-800">{det.modeloNome}</h1>
+        <h1 className="text-lg font-bold tracking-tight text-marinho">{det.modeloNome}</h1>
         <p className="text-sm text-texto-sec">
           {det.clienteNome} ·{" "}
           {new Date(det.data).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" })}
@@ -193,14 +193,14 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
           {det.comentarioGestor && <p className="mt-1 text-sm text-alerta">{det.comentarioGestor}</p>}
           <button
             onClick={iniciarCorrecao}
-            className="mt-3 w-full rounded-lg bg-laranja p-3 font-semibold text-white active:bg-laranja-escuro"
+            className="btn-primario mt-3 w-full rounded-lg p-3"
           >
             Corrigir agora
           </button>
         </div>
       )}
 
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="cartao p-4">
         <RespostasView
           respostas={det.respostas}
           fotos={det.fotos.map((f) => ({

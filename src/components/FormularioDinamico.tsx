@@ -33,7 +33,7 @@ function BotaoOpcao({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-lg border px-4 py-2.5 text-base ${
+      className={`rounded-lg border px-4 py-2.5 text-base transition-colors ${
         ativo ? "border-marinho bg-marinho font-semibold text-white" : "border-slate-300 bg-white text-slate-700"
       }`}
     >
@@ -76,7 +76,7 @@ export function CampoFoto({
           ))}
         </div>
       )}
-      <label className="block cursor-pointer rounded-lg border-2 border-dashed border-slate-300 bg-white p-3 text-center text-sm font-medium text-slate-600">
+      <label className="block cursor-pointer rounded-lg border-2 border-dashed border-slate-300 bg-white p-3 text-center text-sm font-medium text-slate-600 transition-colors hover:border-marinho">
         📷 Tirar / anexar foto
         <input
           type="file"
@@ -126,7 +126,7 @@ function ExtrasCampo({
           value={obs}
           onChange={(e) => onObs(campoId, e.target.value)}
           placeholder="Observação sobre este item…"
-          className="w-full rounded-md border border-slate-300 bg-white p-3 text-base"
+          className="campo-input w-full p-3 text-base"
         />
       )}
       {(!mostrarObs || (comFoto && !mostrarFoto)) && (
@@ -164,7 +164,7 @@ export default function FormularioDinamico({ campos, valores, obs, fotos, onValo
                 type="text"
                 value={(v as string) ?? ""}
                 onChange={(e) => onValor(campo.id, e.target.value)}
-                className="w-full rounded-md border border-slate-300 bg-white p-3 text-base"
+                className="campo-input w-full p-3 text-base"
               />
             )}
 
@@ -173,7 +173,7 @@ export default function FormularioDinamico({ campos, valores, obs, fotos, onValo
                 rows={4}
                 value={(v as string) ?? ""}
                 onChange={(e) => onValor(campo.id, e.target.value)}
-                className="w-full rounded-md border border-slate-300 bg-white p-3 text-base"
+                className="campo-input w-full p-3 text-base"
               />
             )}
 
@@ -183,7 +183,7 @@ export default function FormularioDinamico({ campos, valores, obs, fotos, onValo
                 inputMode="decimal"
                 value={(v as number | string) ?? ""}
                 onChange={(e) => onValor(campo.id, e.target.value === "" ? null : Number(e.target.value))}
-                className="w-full rounded-md border border-slate-300 bg-white p-3 text-base"
+                className="campo-input w-full p-3 text-base"
               />
             )}
 

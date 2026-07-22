@@ -36,7 +36,7 @@ export default async function EditarModelo({
           type="text"
           name="nome"
           defaultValue={modelo.nome}
-          className="flex-1 rounded-md border border-slate-300 bg-white p-2 text-lg font-bold text-slate-800"
+          className="campo-input flex-1 p-2 text-lg font-bold text-marinho"
         />
         <button className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm">Renomear</button>
       </form>
@@ -47,8 +47,8 @@ export default async function EditarModelo({
         </p>
       )}
 
-      <section className="rounded-xl bg-white p-4 shadow-sm">
-        <h2 className="mb-3 text-sm font-semibold uppercase text-slate-500">
+      <section className="cartao p-4">
+        <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.12em] text-texto-sec">
           Campos do formulário (ordem em que o técnico preenche)
         </h2>
         {modelo.campos.length === 0 && <p className="text-slate-400">Nenhum campo ainda.</p>}
@@ -119,12 +119,12 @@ export default async function EditarModelo({
         </ul>
       </section>
 
-      <section className="rounded-xl bg-white p-4 shadow-sm">
-        <h2 className="mb-3 text-sm font-semibold uppercase text-slate-500">Adicionar campo</h2>
+      <section className="cartao p-4">
+        <h2 className="mb-3 text-xs font-bold uppercase tracking-[0.12em] text-texto-sec">Adicionar campo</h2>
         <form action={adicionarCampo} className="space-y-3">
           <input type="hidden" name="modeloId" value={modelo.id} />
           <div className="flex flex-wrap gap-2">
-            <select name="tipo" className="rounded-md border border-slate-300 p-2 text-sm">
+            <select name="tipo" className="campo-input p-2 text-sm">
               {TIPOS_CAMPO.map((t) => (
                 <option key={t} value={t}>
                   {ROTULO_TIPO[t]}
@@ -136,14 +136,14 @@ export default async function EditarModelo({
               name="rotulo"
               required
               placeholder="Rótulo (ex.: Estado do equipamento)"
-              className="flex-1 rounded-md border border-slate-300 p-2 text-sm"
+              className="campo-input flex-1 p-2 text-sm"
             />
           </div>
           <textarea
             name="opcoes"
             rows={3}
             placeholder={"Opções de múltipla escolha — uma por linha (ignore para outros tipos)"}
-            className="w-full rounded-md border border-slate-300 p-2 text-sm"
+            className="campo-input w-full p-2 text-sm"
           />
           <div className="flex items-center gap-4 text-sm text-slate-700">
             <label className="flex items-center gap-1.5">
@@ -155,7 +155,7 @@ export default async function EditarModelo({
             <label className="flex items-center gap-1.5">
               <input type="checkbox" name="noCabecalho" /> Destacar no cabeçalho do relatório
             </label>
-            <button className="ml-auto rounded-md bg-marinho px-4 py-2 font-semibold text-white">
+            <button className="btn-secundario ml-auto rounded-md px-4 py-2">
               Adicionar
             </button>
           </div>

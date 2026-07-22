@@ -18,13 +18,18 @@ export default function NavPainel() {
   return (
     <nav className="flex flex-wrap gap-1 text-sm">
       {LINKS.map((l) => {
-        const ativo = l.href === "/painel" ? pathname === "/painel" || pathname.startsWith("/painel/relatorio") : pathname.startsWith(l.href);
+        const ativo =
+          l.href === "/painel"
+            ? pathname === "/painel" || pathname.startsWith("/painel/relatorio")
+            : pathname.startsWith(l.href);
         return (
           <Link
             key={l.href}
             href={l.href}
-            className={`rounded-md px-3 py-1.5 ${
-              ativo ? "bg-white/15 font-semibold text-white" : "text-slate-300 hover:text-white"
+            className={`rounded-md px-3 py-1.5 transition-colors ${
+              ativo
+                ? "bg-white/15 font-semibold text-white shadow-[inset_0_-2px_0_var(--color-laranja)]"
+                : "text-slate-300 hover:bg-white/8 hover:text-white"
             }`}
           >
             {l.rotulo}

@@ -31,7 +31,7 @@ export default async function DetalheRelatorio({
     <div className="mx-auto max-w-3xl space-y-4">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-xl font-bold text-slate-800">{r.modelo.nome}</h1>
+          <h1 className="text-xl font-bold tracking-tight text-marinho">{r.modelo.nome}</h1>
           <p className="text-sm text-texto-sec">
             {r.cliente.nome} · {r.tecnico.nome} · {r.data.toLocaleDateString("pt-BR")}
           </p>
@@ -60,7 +60,7 @@ export default async function DetalheRelatorio({
         <p className="rounded-md bg-ok-bg p-3 text-sm font-semibold text-ok">Relatório aprovado</p>
       )}
 
-      <div className="rounded-xl bg-white p-5 shadow-sm">
+      <div className="cartao p-5">
         <RespostasView
           respostas={JSON.parse(r.respostas)}
           fotos={r.fotos.map((f) => ({
@@ -73,10 +73,10 @@ export default async function DetalheRelatorio({
       </div>
 
       {r.status !== "APROVADO" && (
-        <div className="flex flex-wrap items-start gap-3 rounded-xl bg-white p-4 shadow-sm">
+        <div className="cartao flex flex-wrap items-start gap-3 p-4">
           <form action={aprovarRelatorio}>
             <input type="hidden" name="uuid" value={r.uuid} />
-            <button className="rounded-md bg-ok px-4 py-2 font-semibold text-white">Aprovar</button>
+            <button className="rounded-md bg-ok px-4 py-2 font-semibold text-white transition-colors hover:brightness-110">Aprovar</button>
           </form>
 
           {r.status === "ENVIADO" && (
@@ -86,9 +86,9 @@ export default async function DetalheRelatorio({
                 name="comentario"
                 rows={2}
                 placeholder="O que o técnico precisa corrigir?"
-                className="min-w-64 flex-1 rounded-md border border-slate-300 p-2 text-sm"
+                className="campo-input min-w-64 flex-1 p-2 text-sm"
               />
-              <button className="rounded-md bg-laranja px-4 py-2 font-semibold text-white active:bg-laranja-escuro">
+              <button className="btn-primario rounded-md px-4 py-2">
                 Devolver p/ correção
               </button>
             </form>

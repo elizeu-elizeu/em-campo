@@ -97,7 +97,7 @@ export default function AssinaturaCanvas({
               setEditando(false);
             }
           }}
-          className="rounded-md bg-marinho px-4 py-1.5 text-sm font-semibold text-white"
+          className="btn-secundario rounded-md px-4 py-1.5 text-sm"
         >
           Confirmar assinatura
         </button>

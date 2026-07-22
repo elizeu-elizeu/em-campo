@@ -12,36 +12,37 @@ export default async function Modelos() {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-slate-800">Modelos de relatório</h1>
+      <h1 className="text-xl font-bold tracking-tight text-marinho">Modelos de relatório</h1>
 
-      <form action={criarModelo} className="flex gap-2 rounded-xl bg-white p-3 shadow-sm">
+      <form action={criarModelo} className="cartao flex gap-2 p-3">
         <input
           type="text"
           name="nome"
           required
           placeholder="Nome do novo modelo (ex.: Instalação de ar-condicionado)"
-          className="flex-1 rounded-md border border-slate-300 p-2 text-sm"
+          className="campo-input flex-1 p-2 text-sm"
         />
-        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">
+        <button className="btn-secundario rounded-md px-4 py-2 text-sm">
           Criar modelo
         </button>
       </form>
 
       <ul className="space-y-2">
         {modelos.length === 0 && (
-          <li className="rounded-xl bg-white p-6 text-center text-slate-400 shadow-sm">
-            Nenhum modelo ainda — crie o primeiro acima.
+          <li className="cartao p-6 text-center text-slate-400">
+            Nenhum modelo ainda.
+            <span className="mt-1 block text-xs">Crie o primeiro no formulário acima.</span>
           </li>
         )}
         {modelos.map((m) => (
-          <li key={m.id} className="flex items-center justify-between rounded-xl bg-white p-4 shadow-sm">
+          <li key={m.id} className="cartao flex items-center justify-between p-4">
             <div>
               <Link href={`/painel/modelos/${m.id}`} className="font-medium text-marinho-claro underline">
                 {m.nome}
               </Link>
               <p className="text-sm text-slate-500">
                 {m._count.campos} campo(s) · {m._count.relatorios} relatório(s)
-                {!m.ativo && <span className="ml-2 rounded-full bg-slate-200 px-2 py-0.5 text-xs">inativo</span>}
+                {!m.ativo && <span className="chip ml-2 bg-slate-200 text-slate-700">inativo</span>}
               </p>
             </div>
             <form action={alternarModeloAtivo}>

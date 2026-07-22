@@ -7,14 +7,16 @@ export default async function PainelLayout({ children }: { children: React.React
 
   return (
     <div className="min-h-dvh bg-base">
-      <header className="bg-marinho text-white">
+      <header className="header-app text-white">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-3">
           <div className="flex flex-wrap items-center gap-4">
             <span className="font-bold">EmCampo</span>
             <NavPainel />
           </div>
           <div className="flex items-center gap-3 text-sm">
-            <span className="text-slate-400">{session.nome}</span>
+            <span className="rounded-full border border-white/20 px-3 py-1 text-xs text-slate-200">
+              {session.nome}
+            </span>
             <BotaoSair />
           </div>
         </div>

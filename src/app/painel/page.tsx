@@ -40,13 +40,13 @@ export default async function Painel({
     prisma.modelo.findMany({ orderBy: { nome: "asc" } }),
   ]);
 
-  const selectCls = "rounded-md border border-slate-300 bg-white p-2 text-sm";
+  const selectCls = "campo-input p-2 text-sm";
 
   return (
     <div className="space-y-4">
-      <h1 className="text-xl font-bold text-slate-800">Relatórios</h1>
+      <h1 className="text-xl font-bold tracking-tight text-marinho">Relatórios</h1>
 
-      <form className="flex flex-wrap items-end gap-2 rounded-xl bg-white p-3 shadow-sm">
+      <form className="cartao flex flex-wrap items-end gap-2 p-3">
         <select name="status" defaultValue={f.status ?? ""} className={selectCls}>
           <option value="">Todos os status</option>
           {Object.entries(NOME_STATUS).map(([v, n]) => (
@@ -71,13 +71,13 @@ export default async function Painel({
             <option key={m.id} value={m.id}>{m.nome}</option>
           ))}
         </select>
-        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Filtrar</button>
+        <button className="btn-secundario rounded-md px-4 py-2 text-sm">Filtrar</button>
         <Link href="/painel" className="p-2 text-sm text-slate-500 underline">Limpar</Link>
       </form>
 
-      <div className="overflow-x-auto rounded-xl bg-white shadow-sm">
+      <div className="cartao overflow-x-auto">
         <table className="w-full text-left text-sm">
-          <thead className="border-b border-slate-200 text-slate-500">
+          <thead className="border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-texto-sec">
             <tr>
               <th className="p-3">Data</th>
               <th className="p-3">Modelo</th>
@@ -92,17 +92,18 @@ export default async function Painel({
               <tr>
                 <td colSpan={6} className="p-6 text-center text-slate-400">
                   Nenhum relatório encontrado.
+                  <span className="mt-1 block text-xs">Ajuste os filtros acima ou aguarde o envio dos técnicos.</span>
                 </td>
               </tr>
             )}
             {relatorios.map((r) => (
-              <tr key={r.uuid} className="border-b border-slate-100 last:border-0 hover:bg-slate-50">
-                <td className="p-3">{r.data.toLocaleDateString("pt-BR")}</td>
+              <tr key={r.uuid} className="border-b border-slate-100 transition-colors last:border-0 hover:bg-slate-50">
+                <td className="p-3 tabular-nums">{r.data.toLocaleDateString("pt-BR")}</td>
                 <td className="p-3 font-medium text-slate-800">{r.modelo.nome}</td>
                 <td className="p-3">{r.cliente.nome}</td>
                 <td className="p-3">{r.tecnico.nome}</td>
                 <td className="p-3">
-                  <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${CHIP[r.status]}`}>
+                  <span className={`chip ${CHIP[r.status]}`}>
                     {NOME_STATUS[r.status]}
                   </span>
                 </td>
