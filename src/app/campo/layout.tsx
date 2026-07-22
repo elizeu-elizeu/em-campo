@@ -15,8 +15,8 @@ export default async function CampoLayout({ children }: { children: React.ReactN
   const titulo = (config?.usarNomeEmpresa ?? true) && empresa?.nome ? empresa.nome : "EmCampo";
 
   return (
-    <div className="min-h-dvh bg-slate-100">
-      <header className="sticky top-0 z-10 flex items-center justify-between bg-blue-700 px-4 py-3 text-white">
+    <div className="min-h-dvh bg-base">
+      <header className="sticky top-0 z-10 flex items-center justify-between bg-marinho px-4 py-3 text-white">
         <Link href="/campo" className="truncate pr-2 text-base font-bold">
           {titulo}
         </Link>
@@ -25,6 +25,7 @@ export default async function CampoLayout({ children }: { children: React.ReactN
           <BotaoSair />
         </div>
       </header>
+      <div className="fita-hivis" />
       <main className="mx-auto max-w-lg p-4 pb-28">{children}</main>
       <NavCampo />
     </div>

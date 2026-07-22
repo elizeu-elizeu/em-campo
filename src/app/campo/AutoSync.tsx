@@ -38,7 +38,7 @@ export default function AutoSync() {
       <span className={`h-2.5 w-2.5 rounded-full ${online ? "bg-green-400" : "bg-slate-400"}`} />
       {online ? "online" : "offline"}
       {pendentes > 0 && (
-        <span className="rounded-full bg-amber-400 px-1.5 font-semibold text-amber-950">
+        <span className="rounded-full bg-laranja px-1.5 font-semibold text-white">
           {pendentes} p/ enviar
         </span>
       )}

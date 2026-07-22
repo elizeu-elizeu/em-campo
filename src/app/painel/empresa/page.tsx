@@ -62,7 +62,7 @@ export default async function Empresa({ searchParams }: { searchParams: Promise<
           )}
           <input type="file" name="logo" accept="image/png,image/jpeg,image/webp" className="text-sm" />
         </div>
-        <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white">Salvar</button>
+        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Salvar</button>
       </form>
     </div>
   );

@@ -22,7 +22,7 @@ export default async function Modelos() {
           placeholder="Nome do novo modelo (ex.: Instalação de ar-condicionado)"
           className="flex-1 rounded-md border border-slate-300 p-2 text-sm"
         />
-        <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white">
+        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">
           Criar modelo
         </button>
       </form>
@@ -36,7 +36,7 @@ export default async function Modelos() {
         {modelos.map((m) => (
           <li key={m.id} className="flex items-center justify-between rounded-xl bg-white p-4 shadow-sm">
             <div>
-              <Link href={`/painel/modelos/${m.id}`} className="font-medium text-blue-700 underline">
+              <Link href={`/painel/modelos/${m.id}`} className="font-medium text-marinho-claro underline">
                 {m.nome}
               </Link>
               <p className="text-sm text-slate-500">

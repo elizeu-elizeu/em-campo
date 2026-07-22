@@ -8,7 +8,7 @@ export default async function LoginPage({
   const { erro } = await searchParams;
 
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-slate-100 p-4">
+    <main className="flex min-h-dvh items-center justify-center bg-base p-4">
       <form
         action={login}
         className="w-full max-w-sm space-y-4 rounded-xl bg-white p-6 shadow"
@@ -53,7 +53,7 @@ export default async function LoginPage({
 
         <button
           type="submit"
-          className="w-full rounded-md bg-blue-600 p-3 text-base font-semibold text-white active:bg-blue-700"
+          className="w-full rounded-md bg-laranja p-3 text-base font-semibold text-white active:bg-laranja-escuro"
         >
           Entrar
         </button>

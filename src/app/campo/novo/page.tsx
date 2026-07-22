@@ -96,7 +96,7 @@ export default function NovoRelatorio() {
       <button
         onClick={criar}
         disabled={!modeloId || !clienteId}
-        className="w-full rounded-xl bg-blue-600 p-4 text-lg font-semibold text-white disabled:opacity-40 active:bg-blue-700"
+        className="w-full rounded-xl bg-laranja p-4 text-lg font-semibold text-white disabled:opacity-40 active:bg-laranja-escuro"
       >
         Começar a preencher
       </button>

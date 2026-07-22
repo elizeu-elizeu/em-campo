@@ -50,7 +50,7 @@ export default function AssinaturaCanvas({
             onChange(null);
             setEditando(true);
           }}
-          className="text-sm font-medium text-blue-700 underline"
+          className="text-sm font-medium text-marinho-claro underline"
         >
           Refazer assinatura
         </button>
@@ -97,7 +97,7 @@ export default function AssinaturaCanvas({
               setEditando(false);
             }
           }}
-          className="rounded-md bg-slate-800 px-4 py-1.5 text-sm font-semibold text-white"
+          className="rounded-md bg-marinho px-4 py-1.5 text-sm font-semibold text-white"
         >
           Confirmar assinatura
         </button>

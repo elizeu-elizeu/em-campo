@@ -6,8 +6,8 @@ export default async function PainelLayout({ children }: { children: React.React
   const session = await requireUser("GESTOR");
 
   return (
-    <div className="min-h-dvh bg-slate-100">
-      <header className="bg-slate-900 text-white">
+    <div className="min-h-dvh bg-base">
+      <header className="bg-marinho text-white">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-3">
           <div className="flex flex-wrap items-center gap-4">
             <span className="font-bold">EmCampo</span>
@@ -19,6 +19,7 @@ export default async function PainelLayout({ children }: { children: React.React
           </div>
         </div>
       </header>
+      <div className="fita-hivis" />
       <main className="mx-auto max-w-5xl p-4">{children}</main>
     </div>
   );

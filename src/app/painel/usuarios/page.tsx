@@ -25,7 +25,7 @@ export default async function Usuarios({ searchParams }: { searchParams: Promise
           <option value="TECNICO">Técnico</option>
           <option value="GESTOR">Gestor</option>
         </select>
-        <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white">Cadastrar</button>
+        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Cadastrar</button>
       </form>
 
       <div className="overflow-x-auto rounded-xl bg-white shadow-sm">

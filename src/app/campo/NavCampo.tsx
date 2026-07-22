@@ -20,7 +20,7 @@ export default function NavCampo() {
             key={a.href}
             href={a.href}
             className={`flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-xs font-medium ${
-              ativo ? "text-blue-700" : "text-slate-500"
+              ativo ? "text-marinho font-bold" : "text-slate-500"
             }`}
           >
             <span aria-hidden className="text-lg leading-none">{a.icone}</span>

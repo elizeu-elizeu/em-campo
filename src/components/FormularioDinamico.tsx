@@ -34,7 +34,7 @@ function BotaoOpcao({
       type="button"
       onClick={onClick}
       className={`rounded-lg border px-4 py-2.5 text-base ${
-        ativo ? "border-blue-600 bg-blue-600 font-semibold text-white" : "border-slate-300 bg-white text-slate-700"
+        ativo ? "border-marinho bg-marinho font-semibold text-white" : "border-slate-300 bg-white text-slate-700"
       }`}
     >
       {children}
@@ -130,7 +130,7 @@ function ExtrasCampo({
         />
       )}
       {(!mostrarObs || (comFoto && !mostrarFoto)) && (
-        <div className="flex gap-5 text-sm font-medium text-blue-700">
+        <div className="flex gap-5 text-sm font-medium text-marinho-claro">
           {comFoto && !mostrarFoto && (
             <button type="button" onClick={() => setMostrarFoto(true)}>
               📷 Adicionar foto

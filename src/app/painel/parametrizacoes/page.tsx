@@ -24,7 +24,7 @@ export default async function Parametrizacoes() {
             <span>
               Exibir o <strong>nome da empresa</strong> no app do técnico (no lugar de &quot;EmCampo&quot;).
               O nome e a logo se cadastram em{" "}
-              <Link href="/painel/empresa" className="text-blue-700 underline">
+              <Link href="/painel/empresa" className="text-marinho-claro underline">
                 Empresa
               </Link>
               .
@@ -42,21 +42,21 @@ export default async function Parametrizacoes() {
           </label>
           <p className="mt-2 text-xs text-slate-500">
             A obrigatoriedade de cada campo específico se define por modelo, em{" "}
-            <Link href="/painel/modelos" className="text-blue-700 underline">
+            <Link href="/painel/modelos" className="text-marinho-claro underline">
               Modelos
             </Link>{" "}
             — cada campo tem o botão Obrigatório.
           </p>
         </div>
 
-        <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white">Salvar</button>
+        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Salvar</button>
       </form>
 
       <div className="rounded-xl bg-white p-5 text-sm text-slate-600 shadow-sm">
         <h2 className="mb-2 text-sm font-semibold uppercase text-slate-500">Permissões</h2>
         <p>
           Papéis (técnico/gestor), ativação e redefinição de senha se gerenciam em{" "}
-          <Link href="/painel/usuarios" className="text-blue-700 underline">
+          <Link href="/painel/usuarios" className="text-marinho-claro underline">
             Usuários
           </Link>
           . Técnicos só veem e editam os próprios relatórios; apenas gestores aprovam, devolvem e alteram

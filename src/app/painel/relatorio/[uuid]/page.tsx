@@ -32,7 +32,7 @@ export default async function DetalheRelatorio({
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-xl font-bold text-slate-800">{r.modelo.nome}</h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-texto-sec">
             {r.cliente.nome} · {r.tecnico.nome} · {r.data.toLocaleDateString("pt-BR")}
           </p>
         </div>
@@ -52,12 +52,12 @@ export default async function DetalheRelatorio({
       )}
 
       {r.status === "DEVOLVIDO" && (
-        <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-800">
+        <p className="rounded-md bg-alerta-bg-suave p-3 text-sm text-alerta">
           Devolvido para correção{r.comentarioGestor ? `: ${r.comentarioGestor}` : ""}
         </p>
       )}
       {r.status === "APROVADO" && (
-        <p className="rounded-md bg-green-50 p-3 text-sm font-semibold text-green-800">Relatório aprovado</p>
+        <p className="rounded-md bg-ok-bg p-3 text-sm font-semibold text-ok">Relatório aprovado</p>
       )}
 
       <div className="rounded-xl bg-white p-5 shadow-sm">
@@ -76,7 +76,7 @@ export default async function DetalheRelatorio({
         <div className="flex flex-wrap items-start gap-3 rounded-xl bg-white p-4 shadow-sm">
           <form action={aprovarRelatorio}>
             <input type="hidden" name="uuid" value={r.uuid} />
-            <button className="rounded-md bg-green-600 px-4 py-2 font-semibold text-white">Aprovar</button>
+            <button className="rounded-md bg-ok px-4 py-2 font-semibold text-white">Aprovar</button>
           </form>
 
           {r.status === "ENVIADO" && (
@@ -88,7 +88,7 @@ export default async function DetalheRelatorio({
                 placeholder="O que o técnico precisa corrigir?"
                 className="min-w-64 flex-1 rounded-md border border-slate-300 p-2 text-sm"
               />
-              <button className="rounded-md bg-amber-600 px-4 py-2 font-semibold text-white">
+              <button className="rounded-md bg-laranja px-4 py-2 font-semibold text-white active:bg-laranja-escuro">
                 Devolver p/ correção
               </button>
             </form>

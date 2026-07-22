@@ -3,9 +3,9 @@ import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 
 const CHIP: Record<string, string> = {
-  ENVIADO: "bg-blue-100 text-blue-800",
-  DEVOLVIDO: "bg-amber-100 text-amber-800",
-  APROVADO: "bg-green-100 text-green-800",
+  ENVIADO: "bg-info-bg text-info",
+  DEVOLVIDO: "bg-alerta-bg text-alerta",
+  APROVADO: "bg-ok-bg text-ok",
 };
 const NOME_STATUS: Record<string, string> = {
   ENVIADO: "Enviado",
@@ -71,7 +71,7 @@ export default async function Painel({
             <option key={m.id} value={m.id}>{m.nome}</option>
           ))}
         </select>
-        <button className="rounded-md bg-slate-800 px-4 py-2 text-sm font-semibold text-white">Filtrar</button>
+        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Filtrar</button>
         <Link href="/painel" className="p-2 text-sm text-slate-500 underline">Limpar</Link>
       </form>
 
@@ -107,7 +107,7 @@ export default async function Painel({
                   </span>
                 </td>
                 <td className="p-3">
-                  <Link href={`/painel/relatorio/${r.uuid}`} className="font-medium text-blue-700 underline">
+                  <Link href={`/painel/relatorio/${r.uuid}`} className="font-medium text-marinho-claro underline">
                     Abrir
                   </Link>
                 </td>

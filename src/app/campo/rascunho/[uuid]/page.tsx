@@ -32,7 +32,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
     return (
       <div className="rounded-xl bg-white p-4 text-slate-600 shadow-sm">
         Rascunho não encontrado — provavelmente já foi enviado.{" "}
-        <Link href="/campo" className="font-medium text-blue-700 underline">
+        <Link href="/campo" className="font-medium text-marinho-claro underline">
           Voltar
         </Link>
       </div>
@@ -48,7 +48,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
           conexão.
         </p>
         {rascunho.erroEnvio && <p className="text-sm text-red-600">Última tentativa: {rascunho.erroEnvio}</p>}
-        <Link href="/campo" className="inline-block font-medium text-blue-700 underline">
+        <Link href="/campo" className="inline-block font-medium text-marinho-claro underline">
           Voltar
         </Link>
       </div>
@@ -140,7 +140,7 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
       <div className="space-y-3 pt-2">
         <button
           onClick={enviar}
-          className="w-full rounded-xl bg-blue-600 p-4 text-lg font-semibold text-white active:bg-blue-700"
+          className="w-full rounded-xl bg-laranja p-4 text-lg font-semibold text-white active:bg-laranja-escuro"
         >
           Enviar relatório
         </button>

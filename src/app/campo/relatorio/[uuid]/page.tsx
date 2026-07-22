@@ -76,7 +76,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
     return (
       <div className="rounded-xl bg-white p-4 text-slate-600 shadow-sm">
         {erro}{" "}
-        <Link href="/campo" className="font-medium text-blue-700 underline">
+        <Link href="/campo" className="font-medium text-marinho-claro underline">
           Voltar
         </Link>
       </div>
@@ -149,7 +149,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
         <div>
           <h1 className="text-lg font-bold text-slate-800">Corrigir: {det.modeloNome}</h1>
           {det.comentarioGestor && (
-            <p className="mt-1 rounded-md bg-amber-50 p-3 text-sm text-amber-800">
+            <p className="mt-1 rounded-md bg-alerta-bg-suave p-3 text-sm text-alerta">
               Comentário do gestor: {det.comentarioGestor}
             </p>
           )}
@@ -169,7 +169,7 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
         <button
           onClick={salvarCorrecao}
           disabled={salvando}
-          className="w-full rounded-xl bg-blue-600 p-4 text-lg font-semibold text-white disabled:opacity-40 active:bg-blue-700"
+          className="w-full rounded-xl bg-laranja p-4 text-lg font-semibold text-white disabled:opacity-40 active:bg-laranja-escuro"
         >
           {salvando ? "Enviando…" : "Reenviar relatório"}
         </button>
@@ -181,19 +181,19 @@ export default function VerRelatorio({ params }: { params: Promise<{ uuid: strin
     <div className="space-y-4">
       <div>
         <h1 className="text-lg font-bold text-slate-800">{det.modeloNome}</h1>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-texto-sec">
           {det.clienteNome} ·{" "}
           {new Date(det.data).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" })}
         </p>
       </div>
 
       {det.status === "DEVOLVIDO" && (
-        <div className="rounded-xl bg-amber-50 p-4">
-          <p className="text-sm font-semibold text-amber-800">Devolvido para correção</p>
-          {det.comentarioGestor && <p className="mt-1 text-sm text-amber-800">{det.comentarioGestor}</p>}
+        <div className="rounded-xl bg-alerta-bg-suave p-4">
+          <p className="text-sm font-semibold text-alerta">Devolvido para correção</p>
+          {det.comentarioGestor && <p className="mt-1 text-sm text-alerta">{det.comentarioGestor}</p>}
           <button
             onClick={iniciarCorrecao}
-            className="mt-3 w-full rounded-lg bg-amber-600 p-3 font-semibold text-white active:bg-amber-700"
+            className="mt-3 w-full rounded-lg bg-laranja p-3 font-semibold text-white active:bg-laranja-escuro"
           >
             Corrigir agora
           </button>

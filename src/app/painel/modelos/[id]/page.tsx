@@ -81,7 +81,7 @@ export default async function EditarModelo({
                     <button
                       className={`rounded-full border px-2 py-0.5 text-xs font-medium ${
                         c.noCabecalho
-                          ? "border-blue-300 bg-blue-50 text-blue-700"
+                          ? "border-info bg-info-bg text-info"
                           : "border-slate-300 text-slate-500"
                       }`}
                     >
@@ -155,7 +155,7 @@ export default async function EditarModelo({
             <label className="flex items-center gap-1.5">
               <input type="checkbox" name="noCabecalho" /> Destacar no cabeçalho do relatório
             </label>
-            <button className="ml-auto rounded-md bg-blue-600 px-4 py-2 font-semibold text-white">
+            <button className="ml-auto rounded-md bg-marinho px-4 py-2 font-semibold text-white">
               Adicionar
             </button>
           </div>

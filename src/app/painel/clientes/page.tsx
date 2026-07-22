@@ -17,7 +17,7 @@ export default async function Clientes() {
         <input type="text" name="nome" required placeholder="Nome do cliente" className="rounded-md border border-slate-300 p-2 text-sm" />
         <input type="text" name="endereco" placeholder="Endereço" className="rounded-md border border-slate-300 p-2 text-sm" />
         <input type="text" name="contato" placeholder="Contato" className="rounded-md border border-slate-300 p-2 text-sm" />
-        <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white">Cadastrar</button>
+        <button className="rounded-md bg-marinho px-4 py-2 text-sm font-semibold text-white">Cadastrar</button>
       </form>
 
       <div className="overflow-x-auto rounded-xl bg-white shadow-sm">

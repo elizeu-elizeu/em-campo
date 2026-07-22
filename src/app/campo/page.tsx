@@ -6,9 +6,14 @@ import { lerEnviadosCache, listarRascunhos, salvarEnviadosCache } from "@/lib/id
 import type { Rascunho, RelatorioResumo } from "@/lib/tipos";
 
 const CHIP: Record<RelatorioResumo["status"], string> = {
-  ENVIADO: "bg-blue-100 text-blue-800",
-  DEVOLVIDO: "bg-amber-100 text-amber-800",
-  APROVADO: "bg-green-100 text-green-800",
+  ENVIADO: "bg-info-bg text-info",
+  DEVOLVIDO: "bg-alerta-bg text-alerta",
+  APROVADO: "bg-ok-bg text-ok",
+};
+const BORDA: Record<RelatorioResumo["status"], string> = {
+  ENVIADO: "border-info",
+  DEVOLVIDO: "border-alerta",
+  APROVADO: "border-ok",
 };
 const NOME_STATUS: Record<RelatorioResumo["status"], string> = {
   ENVIADO: "Enviado",
@@ -47,7 +52,7 @@ export default function CampoHome() {
     <div className="space-y-6">
       <Link
         href="/campo/novo"
-        className="block rounded-xl bg-blue-600 p-4 text-center text-lg font-semibold text-white shadow active:bg-blue-700"
+        className="block rounded-xl bg-laranja p-4 text-center text-lg font-semibold text-white shadow active:bg-laranja-escuro"
       >
         + Novo relatório
       </Link>
@@ -60,19 +65,21 @@ export default function CampoHome() {
               <li key={r.uuid}>
                 <Link
                   href={`/campo/rascunho/${r.uuid}`}
-                  className="block rounded-xl bg-white p-4 shadow-sm active:bg-slate-50"
+                  className={`block rounded-xl border-l-4 bg-white p-4 shadow-sm active:bg-slate-50 ${
+                    r.estado === "PENDENTE" ? "border-espera" : "border-slate-300"
+                  }`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-slate-800">{r.modelo.nome}</span>
                     <span
                       className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                        r.estado === "PENDENTE" ? "bg-amber-100 text-amber-800" : "bg-slate-200 text-slate-700"
+                        r.estado === "PENDENTE" ? "bg-espera-bg text-espera" : "bg-slate-200 text-slate-700"
                       }`}
                     >
                       {r.estado === "PENDENTE" ? "Aguardando envio" : "Rascunho"}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-texto-sec">
                     {r.clienteNome} · {dataCurta(r.criadoEm)}
                   </p>
                   {r.erroEnvio && <p className="mt-1 text-xs text-red-600">Falha no envio: {r.erroEnvio}</p>}
@@ -95,7 +102,7 @@ export default function CampoHome() {
               <li key={r.uuid}>
                 <Link
                   href={`/campo/relatorio/${r.uuid}`}
-                  className="block rounded-xl bg-white p-4 shadow-sm active:bg-slate-50"
+                  className={`block rounded-xl border-l-4 bg-white p-4 shadow-sm active:bg-slate-50 ${BORDA[r.status]}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-slate-800">{r.modeloNome}</span>
@@ -103,11 +110,11 @@ export default function CampoHome() {
                       {NOME_STATUS[r.status]}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-texto-sec">
                     {r.clienteNome} · {dataCurta(r.data)}
                   </p>
                   {r.status === "DEVOLVIDO" && r.comentarioGestor && (
-                    <p className="mt-1 text-sm text-amber-700">Gestor: {r.comentarioGestor}</p>
+                    <p className="mt-1 rounded-md bg-alerta-bg-suave p-2 text-sm text-alerta">Gestor: {r.comentarioGestor}</p>
                   )}
                 </Link>
               </li>
