@@ -5,7 +5,7 @@ import type { Resposta } from "@/lib/tipos";
 
 export type FotoRemota = { uuid: string; campoId: number | null; url: string; legenda: string | null };
 
-function formatarValor(r: Resposta): string {
+export function formatarValor(r: Resposta): string {
   if (r.valor === null || r.valor === undefined || r.valor === "") return "—";
   if (r.tipo === "SIM_NAO") return r.valor ? "Sim" : "Não";
   if (Array.isArray(r.valor)) return r.valor.length ? r.valor.join(", ") : "—";

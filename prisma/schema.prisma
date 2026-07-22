@@ -19,6 +19,24 @@ model User {
   relatorios Relatorio[]
 }
 
+// Dados da prestadora — linha única (id=1), aparece no cabeçalho dos relatórios.
+model Empresa {
+  id       Int     @id @default(1)
+  nome     String
+  cnpj     String?
+  telefone String?
+  email    String?
+  endereco String?
+  logo     String? // arquivo em public/uploads/ (nome uuid.ext)
+}
+
+// Parametrizações do app — linha única (id=1).
+model Config {
+  id              Int     @id @default(1)
+  usarNomeEmpresa Boolean @default(true) // app do técnico exibe o nome da empresa no lugar de "EmCampo"
+  exigirFoto      Boolean @default(false) // todo relatório precisa de ao menos 1 foto para ser enviado
+}
+
 model Cliente {
   id         Int         @id @default(autoincrement())
   nome       String
@@ -45,6 +63,7 @@ model Campo {
   obrigatorio Boolean @default(false)
   opcoes      String? // JSON string[] — só para tipo ESCOLHA
   multipla    Boolean @default(false) // ESCOLHA: permite marcar várias opções
+  noCabecalho Boolean @default(false) // valor sobe para o cabeçalho do relatório/PDF
 }
 
 model Relatorio {

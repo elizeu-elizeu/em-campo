@@ -10,8 +10,8 @@ export async function atualizarCatalogo(): Promise<boolean> {
   try {
     const res = await fetch("/api/bootstrap", { cache: "no-store" });
     if (!res.ok) return false;
-    const { modelos, clientes } = await res.json();
-    await salvarCatalogo(modelos, clientes);
+    const { modelos, clientes, config } = await res.json();
+    await salvarCatalogo(modelos, clientes, config);
     return true;
   } catch {
     return false; // offline — segue com o catálogo local

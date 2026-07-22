@@ -30,6 +30,7 @@ export type CampoDef = {
   obrigatorio: boolean;
   opcoes: string[] | null;
   multipla: boolean;
+  noCabecalho?: boolean; // valor destacado no cabeçalho do relatório/PDF
 };
 
 export type ModeloDef = { id: number; nome: string; campos: CampoDef[] };
@@ -37,7 +38,15 @@ export type ClienteDef = { id: number; nome: string; endereco: string | null };
 
 // valor: string | number | boolean | string[] (ESCOLHA multipla) | null (FOTO fica null; fotos são entidades próprias)
 // obs: observação livre do técnico sobre o item; fotos de evidência ficam em Foto.campoId (qualquer tipo de campo)
-export type Resposta = { campoId: number; rotulo: string; tipo: TipoCampo; valor: unknown; obs?: string | null };
+// cab: snapshot da flag "destacar no cabeçalho" do campo na época do preenchimento
+export type Resposta = {
+  campoId: number;
+  rotulo: string;
+  tipo: TipoCampo;
+  valor: unknown;
+  obs?: string | null;
+  cab?: boolean;
+};
 
 export type FotoLocal = { uuid: string; campoId: number | null; blob: Blob; legenda?: string };
 
@@ -84,6 +93,7 @@ export function montarRespostas(
     tipo: c.tipo,
     valor: c.tipo === "FOTO" ? null : (valores[c.id] ?? null),
     obs: obsPorCampo[c.id]?.trim() || null,
+    cab: c.noCabecalho ?? false,
   }));
 }
 

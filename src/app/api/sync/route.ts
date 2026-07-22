@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
   const limpas: Resposta[] = [];
   for (const r of respostas) {
-    const { campoId, rotulo, tipo, valor, obs } = (r ?? {}) as Record<string, unknown>;
+    const { campoId, rotulo, tipo, valor, obs, cab } = (r ?? {}) as Record<string, unknown>;
     if (
       typeof campoId !== "number" ||
       typeof rotulo !== "string" ||
@@ -51,6 +51,7 @@ export async function POST(req: Request) {
       tipo: tipo as TipoCampo,
       valor,
       obs: typeof obs === "string" ? obs.slice(0, 5000) : null,
+      cab: cab === true,
     });
   }
 

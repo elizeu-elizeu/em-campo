@@ -1,5 +1,12 @@
 import { notFound } from "next/navigation";
-import { adicionarCampo, moverCampo, removerCampo, renomearModelo } from "@/lib/actions";
+import {
+  adicionarCampo,
+  alternarCampoCabecalho,
+  alternarCampoObrigatorio,
+  moverCampo,
+  removerCampo,
+  renomearModelo,
+} from "@/lib/actions";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 import { ROTULO_TIPO, TIPOS_CAMPO, type TipoCampo } from "@/lib/tipos";
@@ -56,6 +63,32 @@ export default async function EditarModelo({
                   {c.opcoes && ` · ${(JSON.parse(c.opcoes) as string[]).join(" / ")}`}
                   {c.multipla && " · várias escolhas"}
                 </p>
+                <div className="mt-1.5 flex gap-2">
+                  <form action={alternarCampoObrigatorio}>
+                    <input type="hidden" name="id" value={c.id} />
+                    <button
+                      className={`rounded-full border px-2 py-0.5 text-xs font-medium ${
+                        c.obrigatorio
+                          ? "border-red-300 bg-red-50 text-red-700"
+                          : "border-slate-300 text-slate-500"
+                      }`}
+                    >
+                      {c.obrigatorio ? "Obrigatório ✓" : "Obrigatório"}
+                    </button>
+                  </form>
+                  <form action={alternarCampoCabecalho}>
+                    <input type="hidden" name="id" value={c.id} />
+                    <button
+                      className={`rounded-full border px-2 py-0.5 text-xs font-medium ${
+                        c.noCabecalho
+                          ? "border-blue-300 bg-blue-50 text-blue-700"
+                          : "border-slate-300 text-slate-500"
+                      }`}
+                    >
+                      {c.noCabecalho ? "No cabeçalho ✓" : "No cabeçalho"}
+                    </button>
+                  </form>
+                </div>
               </div>
               <form action={moverCampo}>
                 <input type="hidden" name="id" value={c.id} />
@@ -118,6 +151,9 @@ export default async function EditarModelo({
             </label>
             <label className="flex items-center gap-1.5">
               <input type="checkbox" name="multipla" /> Permite marcar várias opções
+            </label>
+            <label className="flex items-center gap-1.5">
+              <input type="checkbox" name="noCabecalho" /> Destacar no cabeçalho do relatório
             </label>
             <button className="ml-auto rounded-md bg-blue-600 px-4 py-2 font-semibold text-white">
               Adicionar

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import FormularioDinamico, { CampoFoto, type FotoView } from "@/components/FormularioDinamico";
-import { lerRascunho, removerRascunho, salvarRascunho } from "@/lib/idb";
+import { lerConfig, lerRascunho, removerRascunho, salvarRascunho } from "@/lib/idb";
 import { sincronizarPendentes } from "@/lib/sync";
 import { camposFaltando, type Rascunho } from "@/lib/tipos";
 
@@ -72,6 +72,13 @@ export default function EditarRascunho({ params }: { params: Promise<{ uuid: str
     const faltando = camposFaltando(r.modelo, r.valores, r.fotos);
     if (faltando.length > 0) {
       setErro(`Preencha os campos obrigatórios: ${faltando.join(", ")}`);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    // Parametrização da empresa: foto obrigatória em todo relatório
+    const config = await lerConfig();
+    if (config?.exigirFoto && r.fotos.length === 0) {
+      setErro("A empresa exige ao menos uma foto por relatório.");
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }

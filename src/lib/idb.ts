@@ -17,10 +17,17 @@ function db() {
   return dbPromise;
 }
 
-export async function salvarCatalogo(modelos: ModeloDef[], clientes: ClienteDef[]) {
+export type ConfigApp = { exigirFoto: boolean };
+
+export async function salvarCatalogo(modelos: ModeloDef[], clientes: ClienteDef[], config?: ConfigApp) {
   const d = await db();
   await d.put("catalogo", modelos, "modelos");
   await d.put("catalogo", clientes, "clientes");
+  if (config) await d.put("catalogo", config, "config");
+}
+
+export async function lerConfig(): Promise<ConfigApp | null> {
+  return ((await (await db()).get("catalogo", "config")) as ConfigApp | undefined) ?? null;
 }
 
 export async function lerCatalogo(): Promise<{ modelos: ModeloDef[]; clientes: ClienteDef[] } | null> {

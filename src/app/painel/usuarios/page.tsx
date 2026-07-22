@@ -1,4 +1,4 @@
-import { alternarUsuarioAtivo, criarUsuario } from "@/lib/actions";
+import { alternarPapel, alternarUsuarioAtivo, criarUsuario, redefinirSenha } from "@/lib/actions";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 
@@ -48,10 +48,30 @@ export default async function Usuarios({ searchParams }: { searchParams: Promise
                 <td className="p-3">{u.ativo ? "Ativo" : <span className="text-red-600">Inativo</span>}</td>
                 <td className="p-3">
                   {u.id !== session.userId && (
-                    <form action={alternarUsuarioAtivo}>
-                      <input type="hidden" name="id" value={u.id} />
-                      <button className="text-slate-600 underline">{u.ativo ? "Desativar" : "Reativar"}</button>
-                    </form>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <form action={alternarUsuarioAtivo}>
+                        <input type="hidden" name="id" value={u.id} />
+                        <button className="text-slate-600 underline">{u.ativo ? "Desativar" : "Reativar"}</button>
+                      </form>
+                      <form action={alternarPapel}>
+                        <input type="hidden" name="id" value={u.id} />
+                        <button className="text-slate-600 underline">
+                          {u.papel === "GESTOR" ? "Tornar técnico" : "Tornar gestor"}
+                        </button>
+                      </form>
+                      <form action={redefinirSenha} className="flex items-center gap-1">
+                        <input type="hidden" name="id" value={u.id} />
+                        <input
+                          type="password"
+                          name="senha"
+                          required
+                          minLength={6}
+                          placeholder="Nova senha"
+                          className="w-28 rounded-md border border-slate-300 p-1 text-xs"
+                        />
+                        <button className="text-slate-600 underline">Redefinir</button>
+                      </form>
+                    </div>
                   )}
                 </td>
               </tr>

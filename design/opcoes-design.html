@@ -861,6 +861,680 @@
       </aside>
     </div>
   </section>
+
+  <section class="opcao" id="opcao-6">
+    <h2><span class="num">6</span> Medidor</h2>
+    <div class="linha">
+      <div class="mock"><section id="dir-medidor">
+<style>
+#dir-medidor{font-family:'Karla',Arial,sans-serif;background:linear-gradient(180deg,#cfd4d9,#dde1e5);padding:32px 12px;display:flex;justify-content:center}
+#dir-medidor *{box-sizing:border-box;margin:0;padding:0}
+#dir-medidor .dm-phone{width:390px;max-width:100%;position:relative;background:#202327;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.4px);background-size:7px 7px;border-radius:46px;padding:12px;box-shadow:0 22px 44px rgba(15,18,22,.38),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 0 rgba(0,0,0,.5)}
+#dir-medidor .dm-phone::before{content:"";position:absolute;left:-5px;top:118px;width:5px;height:88px;background:linear-gradient(#3a3e45,#282c31);border-radius:4px 0 0 4px}
+#dir-medidor .dm-phone::after{content:"";position:absolute;right:-5px;top:132px;width:5px;height:60px;background:linear-gradient(#e01430,#a30d22);border-radius:0 4px 4px 0}
+#dir-medidor .dm-speaker{width:62px;height:5px;border-radius:3px;background:#0d0f12;margin:4px auto 9px;box-shadow:inset 0 1px 2px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.07)}
+#dir-medidor .dm-screen{border-radius:34px;padding:18px 16px 20px;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.32) 0,rgba(255,255,255,.32) 1px,rgba(255,255,255,0) 1px,rgba(255,255,255,0) 3px),linear-gradient(180deg,#eef0f3,#e2e5e9);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6),inset 0 2px 8px rgba(20,24,28,.12)}
+#dir-medidor .dm-head{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+#dir-medidor .dm-logoicon{flex:none;display:block}
+#dir-medidor .dm-logotype{font-size:21px;font-weight:800;letter-spacing:-.02em;color:#15181c;margin-right:auto}
+#dir-medidor .dm-online{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:700;color:#20603a}
+#dir-medidor .dm-lamp-on{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#5ed17f,#27963f 70%);border:1px solid #1c6b34;animation:dm-pulse-medidor 2.6s ease-in-out infinite}
+#dir-medidor .dm-lcd,#dir-medidor .dm-badge{display:inline-block;background:linear-gradient(180deg,#c7cfba,#d9dfcc);border:1px solid #98a289;border-radius:6px;box-shadow:inset 0 1px 3px rgba(24,28,18,.3),0 1px 0 rgba(255,255,255,.65);color:#232818;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums;padding:2px 8px}
+#dir-medidor .dm-lcd{font-size:16px}
+#dir-medidor .dm-badge{font-size:15px;white-space:nowrap}
+#dir-medidor .dm-cta{display:flex;width:100%;min-height:58px;align-items:center;justify-content:center;font-family:inherit;font-size:19px;font-weight:800;letter-spacing:.01em;color:#fff;background:linear-gradient(180deg,#d81430,#b30e24);border:2px solid #85091a;border-radius:16px;box-shadow:0 3px 0 #6f0715,inset 0 1px 0 rgba(255,255,255,.3);cursor:pointer;margin-bottom:6px}
+#dir-medidor .dm-sec{display:flex;align-items:center;gap:10px;margin:20px 2px 10px;font-size:14px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#434b54}
+#dir-medidor .dm-sec svg{flex:1;height:12px;display:block;min-width:0}
+#dir-medidor .dm-card{background:linear-gradient(180deg,#fcfdfe,#f1f3f5);border:2px solid #24272c;border-radius:16px;padding:14px 14px 13px;margin-bottom:12px;box-shadow:0 2px 5px rgba(24,28,33,.22),inset 0 1px 0 #fff}
+#dir-medidor .dm-card h3{font-size:18px;font-weight:800;color:#15181c;letter-spacing:-.01em}
+#dir-medidor .dm-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:7px;font-size:16px;color:#454d57;font-weight:500}
+#dir-medidor .dm-dot{color:#8a929b}
+#dir-medidor .dm-chiprow{margin-top:10px;display:flex}
+#dir-medidor .dm-chip{display:inline-flex;align-items:center;gap:7px;min-height:30px;padding:3px 12px;border-radius:999px;font-size:15px;font-weight:800;border:1px solid}
+#dir-medidor .dm-chip i{width:9px;height:9px;border-radius:50%;flex:none}
+#dir-medidor .dm-wait{color:#7a4d00;background:#fdf0d2;border-color:#dfc07f}
+#dir-medidor .dm-wait i{background:#b47c00}
+#dir-medidor .dm-ok{color:#1c6b34;background:#e0f1e3;border-color:#a3d0ad}
+#dir-medidor .dm-ok i{background:#1f8a43}
+#dir-medidor .dm-back{color:#a30f1c;background:#fbe5e7;border-color:#e7aeb4}
+#dir-medidor .dm-back i{background:#c8102e}
+#dir-medidor .dm-sent{color:#29527a;background:#e3edf6;border-color:#a8c6e0}
+#dir-medidor .dm-sent i{background:#3672ab}
+#dir-medidor .dm-note{margin-top:11px;padding:9px 12px;border-left:4px solid #c8102e;border-radius:0 10px 10px 0;background:#fbe9ea;color:#8f0e1a;font-size:16px;line-height:1.4}
+#dir-medidor .dm-note strong{font-weight:800}
+#dir-medidor .dm-foot{margin-top:18px;text-align:center;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#59616b}
+@keyframes dm-pulse-medidor{0%,100%{box-shadow:0 0 0 0 rgba(39,150,63,.4)}50%{box-shadow:0 0 0 6px rgba(39,150,63,0)}}
+@media (prefers-reduced-motion:reduce){#dir-medidor .dm-lamp-on{animation:none}}
+</style>
+<div class="dm-phone">
+  <div class="dm-speaker" aria-hidden="true"></div>
+  <div class="dm-screen">
+    <header class="dm-head">
+      <svg class="dm-logoicon" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="8.5" fill="none" stroke="#23262b" stroke-width="2.4"/><path d="M14 1.6v4.6M14 21.8v4.6M1.6 14h4.6M21.8 14h4.6" stroke="#c8102e" stroke-width="2.4" stroke-linecap="round" fill="none"/><circle cx="14" cy="14" r="3" fill="#c8102e"/></svg>
+      <span class="dm-logotype">EmCampo</span>
+      <span class="dm-online"><i class="dm-lamp-on" aria-hidden="true"></i>online</span>
+      <span class="dm-badge">1 p/ enviar</span>
+    </header>
+    <button type="button" class="dm-cta">+ Novo relatório</button>
+    <h2 class="dm-sec"><span>No aparelho</span><svg viewBox="0 0 224 12" preserveAspectRatio="none" aria-hidden="true"><path d="M1 1V11M9 4V11M17 4V11M25 4V11M33 4V11M41 1V11M49 4V11M57 4V11M65 4V11M73 4V11M81 1V11M89 4V11M97 4V11M105 4V11M113 4V11M121 1V11M129 4V11M137 4V11M145 4V11M153 4V11M161 1V11M169 4V11M177 4V11M185 4V11M193 4V11M201 1V11M209 4V11M217 4V11M223 1V11" stroke="#98a1ab" stroke-width="1.5" vector-effect="non-scaling-stroke" fill="none"/></svg></h2>
+    <article class="dm-card">
+      <h3>Manutenção preventiva</h3>
+      <p class="dm-meta">Condomínio Jardim das Flores <span class="dm-dot">·</span> <span class="dm-lcd">22/07/26</span></p>
+      <p class="dm-chiprow"><span class="dm-chip dm-wait"><i aria-hidden="true"></i>Aguardando envio</span></p>
+    </article>
+    <h2 class="dm-sec"><span>Enviados</span><svg viewBox="0 0 224 12" preserveAspectRatio="none" aria-hidden="true"><path d="M1 1V11M9 4V11M17 4V11M25 4V11M33 4V11M41 1V11M49 4V11M57 4V11M65 4V11M73 4V11M81 1V11M89 4V11M97 4V11M105 4V11M113 4V11M121 1V11M129 4V11M137 4V11M145 4V11M153 4V11M161 1V11M169 4V11M177 4V11M185 4V11M193 4V11M201 1V11M209 4V11M217 4V11M223 1V11" stroke="#98a1ab" stroke-width="1.5" vector-effect="non-scaling-stroke" fill="none"/></svg></h2>
+    <article class="dm-card">
+      <h3>Instalação de split</h3>
+      <p class="dm-meta">Padaria Estrela <span class="dm-dot">·</span> <span class="dm-lcd">21/07/26</span></p>
+      <p class="dm-chiprow"><span class="dm-chip dm-ok"><i aria-hidden="true"></i>Aprovado</span></p>
+    </article>
+    <article class="dm-card">
+      <h3>Manutenção preventiva</h3>
+      <p class="dm-meta">Cond. Jardim das Flores <span class="dm-dot">·</span> <span class="dm-lcd">20/07/26</span></p>
+      <p class="dm-chiprow"><span class="dm-chip dm-back"><i aria-hidden="true"></i>Devolvido</span></p>
+      <p class="dm-note"><strong>Gestor:</strong> refazer foto do quadro elétrico</p>
+    </article>
+    <article class="dm-card">
+      <h3>Dedetização</h3>
+      <p class="dm-meta">Mercado Bom Preço <span class="dm-dot">·</span> <span class="dm-lcd">19/07/26</span></p>
+      <p class="dm-chiprow"><span class="dm-chip dm-sent"><i aria-hidden="true"></i>Enviado</span></p>
+    </article>
+    <p class="dm-foot">IP54 · feito para o campo</p>
+  </div>
+</div>
+</section></div>
+      <aside>
+        <h3>Conceito</h3>
+        <p>O app é um instrumento de medição premium: corpo de borracha preta emborrachada, tela de alumínio claro escovado e vermelho-instrumento reservado ao gatilho de ação e às leituras críticas. Datas e contadores aparecem em pequenos displays LCD verde-acinzentado, como num multímetro calibrado; cada card é uma face de instrumento com borda de borracha.</p>
+        <h3>Por que funciona</h3>
+        <p>O técnico reconhece na hora a linguagem das suas próprias ferramentas caras (trena a laser, multímetro): base clara e fria que aguenta sol forte, um único vermelho gritando onde importa ("+ Novo relatório", devolução), hierarquia de painel de instrumento. Para o gestor, a estética de equipamento calibrado transmite empresa técnica e precisa — não startup genérica — e os displays LCD de data dão ar de registro exato, auditável.</p>
+        <h3>Paleta</h3>
+        <div class="swatches">
+          <div class="sw"><span class="cor" style="background:#c8102e"></span><code>#c8102e</code><small>vermelho-instrumento: botão primário, gatilho lateral, alertas de devolução</small></div><div class="sw"><span class="cor" style="background:#e8ebee"></span><code>#e8ebee</code><small>alumínio claro escovado: fundo da tela</small></div><div class="sw"><span class="cor" style="background:#202327"></span><code>#202327</code><small>borracha preta: moldura do aparelho e bordas dos cards</small></div><div class="sw"><span class="cor" style="background:#15181c"></span><code>#15181c</code><small>tinta principal de títulos e logotipo</small></div><div class="sw"><span class="cor" style="background:#454d57"></span><code>#454d57</code><small>cinza-aço: texto secundário e rótulos gravados</small></div><div class="sw"><span class="cor" style="background:#d9dfcc"></span><code>#d9dfcc</code><small>verde-LCD: displays de data e contador p/ enviar</small></div><div class="sw"><span class="cor" style="background:#1c6b34"></span><code>#1c6b34</code><small>verde de leitura ok: chip Aprovado e lâmpada online</small></div><div class="sw"><span class="cor" style="background:#7a4d00"></span><code>#7a4d00</code><small>âmbar de espera: chip Aguardando envio</small></div>
+        </div>
+        <h3>Fontes</h3>
+        <p>Karla</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="opcao" id="opcao-7">
+    <h2><span class="num">7</span> Contrato</h2>
+    <div class="linha">
+      <div class="mock"><section id="dir-contrato">
+<style>
+#dir-contrato { display:flex; justify-content:center; padding:32px 0; background:transparent; }
+#dir-contrato * { margin:0; padding:0; box-sizing:border-box; }
+#dir-contrato .phone { width:390px; background:#1A1917; border-radius:46px; padding:10px; box-shadow:0 18px 40px rgba(20,18,16,.28), 0 2px 6px rgba(20,18,16,.2); }
+#dir-contrato .screen { background:#FFFFFF; border-radius:37px; overflow:hidden; padding:26px 22px 28px; }
+
+/* ---------- letterhead ---------- */
+#dir-contrato .letterhead { display:flex; align-items:center; justify-content:space-between; }
+#dir-contrato .brand { display:flex; align-items:center; gap:10px; }
+#dir-contrato .brand h1 { font-family:'Fraunces', Georgia, serif; font-weight:700; font-size:30px; letter-spacing:-0.5px; color:#141210; line-height:1; }
+#dir-contrato .brand svg { display:block; }
+#dir-contrato .statusrow { display:flex; align-items:center; justify-content:space-between; margin-top:14px; }
+#dir-contrato .online { display:flex; align-items:center; gap:8px; font-family:'Karla', Arial, sans-serif; font-size:16px; font-weight:700; color:#141210; }
+#dir-contrato .dot { width:10px; height:10px; border-radius:50%; background:#2F6B3F; box-shadow:0 0 0 3px rgba(47,107,63,.15); animation:dir-contrato-pulse 2.6s ease-in-out infinite; }
+@keyframes dir-contrato-pulse { 0%,100% { box-shadow:0 0 0 2px rgba(47,107,63,.10); } 50% { box-shadow:0 0 0 5px rgba(47,107,63,.22); } }
+@media (prefers-reduced-motion: reduce) { #dir-contrato .dot { animation:none; } }
+#dir-contrato .badge { font-family:'Karla', Arial, sans-serif; font-size:16px; font-weight:800; color:#141210; border:1.5px solid #141210; border-radius:6px; padding:6px 12px; letter-spacing:.2px; }
+#dir-contrato .rule-double { margin-top:16px; border-top:2.5px solid #141210; position:relative; }
+#dir-contrato .rule-double::after { content:""; display:block; border-top:1px solid #141210; margin-top:3px; }
+
+/* ---------- primary action ---------- */
+#dir-contrato .btn-new { display:flex; align-items:center; justify-content:center; width:100%; min-height:58px; margin-top:22px; background:#141210; color:#FFFFFF; border:none; border-radius:10px; font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:21px; letter-spacing:.2px; cursor:pointer; border-top:3px solid #C9A227; box-shadow:0 2px 0 rgba(20,18,16,.2); }
+
+/* ---------- clauses ---------- */
+#dir-contrato .clause { display:flex; align-items:baseline; gap:10px; margin:28px 0 12px; }
+#dir-contrato .clause h2 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:19px; color:#141210; white-space:nowrap; }
+#dir-contrato .clause h2 .rn { font-style:italic; font-weight:700; margin-right:2px; }
+#dir-contrato .clause .fill { flex:1; border-top:1px solid #DAD5CC; transform:translateY(-4px); }
+
+/* ---------- cards ---------- */
+#dir-contrato .card { position:relative; background:#FFFFFF; border:1px solid #DAD5CC; border-radius:8px; padding:16px 16px 15px; box-shadow:0 1px 2px rgba(20,18,16,.05); min-height:48px; }
+#dir-contrato .card + .card { margin-top:12px; }
+#dir-contrato .card h3 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:20px; color:#141210; line-height:1.25; }
+#dir-contrato .card .meta { font-family:'Karla', Arial, sans-serif; font-size:16px; color:#5C5750; margin-top:5px; }
+#dir-contrato .card .chiprow { margin-top:11px; }
+#dir-contrato .card.sealed { padding-right:64px; }
+#dir-contrato .seal-corner { position:absolute; top:-10px; right:12px; transform:rotate(-8deg); filter:drop-shadow(0 2px 3px rgba(122,92,18,.3)); }
+
+/* ---------- chips (distinguíveis por texto e por tipo de borda) ---------- */
+#dir-contrato .chip { display:inline-flex; align-items:center; gap:7px; font-family:'Karla', Arial, sans-serif; font-size:16px; font-weight:800; padding:6px 12px; border-radius:5px; letter-spacing:.2px; }
+#dir-contrato .chip-espera { border:1.5px dashed #7D766C; color:#141210; }
+#dir-contrato .chip-aprovado { border:1.5px solid #C9A227; color:#7A5C12; background:#FFFDF5; }
+#dir-contrato .chip-devolvido { background:#141210; color:#FFFFFF; border:1.5px solid #141210; }
+#dir-contrato .chip-enviado { border:1.5px solid #C9C3B8; color:#5C5750; }
+
+/* ---------- nota do gestor ---------- */
+#dir-contrato .nota { margin-top:12px; padding:9px 0 9px 12px; border-left:3px solid #C9A227; font-family:'Fraunces', Georgia, serif; font-style:italic; font-size:17px; color:#141210; line-height:1.4; }
+#dir-contrato .nota strong { font-style:normal; font-weight:700; }
+
+/* ---------- rodapé ---------- */
+#dir-contrato .foot { margin-top:26px; padding-top:16px; border-top:1px solid #DAD5CC; text-align:center; font-family:'Fraunces', Georgia, serif; font-style:italic; font-size:16px; color:#5C5750; }
+</style>
+
+<div class="phone">
+  <div class="screen">
+
+    <header>
+      <div class="letterhead">
+        <div class="brand">
+          <svg width="26" height="26" viewBox="0 0 48 48" aria-hidden="true">
+            <defs>
+              <linearGradient id="ct-gold-a" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#D9B44A"/><stop offset=".55" stop-color="#B08A2E"/><stop offset="1" stop-color="#8A6A1F"/>
+              </linearGradient>
+            </defs>
+            <circle cx="24" cy="24" r="22" fill="none" stroke="url(#ct-gold-a)" stroke-width="3" stroke-dasharray="1 4.4" stroke-linecap="round"/>
+            <circle cx="24" cy="24" r="18.5" fill="url(#ct-gold-a)"/>
+            <circle cx="24" cy="24" r="14" fill="none" stroke="#FFF7E0" stroke-width="1.3" stroke-dasharray="2.6 2.2"/>
+            <path d="M17.5 24.5l4.4 4.4 8.6-9" fill="none" stroke="#FFF9EA" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h1>EmCampo</h1>
+        </div>
+      </div>
+      <div class="statusrow">
+        <span class="online"><span class="dot"></span> online</span>
+        <span class="badge">1 p/ enviar</span>
+      </div>
+      <div class="rule-double"></div>
+    </header>
+
+    <button class="btn-new" type="button">+ Novo relatório</button>
+
+    <div class="clause">
+      <h2><span class="rn">I.</span> No aparelho</h2>
+      <span class="fill"></span>
+    </div>
+
+    <article class="card">
+      <h3>Manutenção preventiva</h3>
+      <p class="meta">Condomínio Jardim das Flores · 22/07/26</p>
+      <div class="chiprow"><span class="chip chip-espera">Aguardando envio</span></div>
+    </article>
+
+    <div class="clause">
+      <h2><span class="rn">II.</span> Enviados</h2>
+      <span class="fill"></span>
+    </div>
+
+    <article class="card sealed">
+      <span class="seal-corner" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 48 48">
+          <defs>
+            <linearGradient id="ct-gold-b" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E2C05C"/><stop offset=".55" stop-color="#B08A2E"/><stop offset="1" stop-color="#8A6A1F"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="22" fill="none" stroke="url(#ct-gold-b)" stroke-width="3" stroke-dasharray="1 4.4" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="18.5" fill="url(#ct-gold-b)"/>
+          <circle cx="24" cy="24" r="14" fill="none" stroke="#FFF7E0" stroke-width="1.3" stroke-dasharray="2.6 2.2"/>
+          <path d="M17.5 24.5l4.4 4.4 8.6-9" fill="none" stroke="#FFF9EA" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <h3>Instalação de split</h3>
+      <p class="meta">Padaria Estrela · 21/07/26</p>
+      <div class="chiprow"><span class="chip chip-aprovado">Aprovado</span></div>
+    </article>
+
+    <article class="card">
+      <h3>Manutenção preventiva</h3>
+      <p class="meta">Cond. Jardim das Flores · 20/07/26</p>
+      <div class="chiprow"><span class="chip chip-devolvido">Devolvido</span></div>
+      <p class="nota"><strong>Gestor:</strong> refazer foto do quadro elétrico</p>
+    </article>
+
+    <article class="card">
+      <h3>Dedetização</h3>
+      <p class="meta">Mercado Bom Preço · 19/07/26</p>
+      <div class="chiprow"><span class="chip chip-enviado">Enviado</span></div>
+    </article>
+
+    <p class="foot">Salvo no aparelho até você enviar — nada se perde.</p>
+
+  </div>
+</div>
+</section></div>
+      <aside>
+        <h3>Conceito</h3>
+        <p>Papelada de cartório moderna: base branquíssima, hierarquia inteira feita em tipografia serifada editorial, cláusulas numeradas em algarismos romanos e quase nenhuma cor — exceto um único selo dourado de rosetão, que lacra o relatório aprovado. A sensação é de documento com valor legal: sóbrio, definitivo, luxo silencioso.</p>
+        <h3>Por que funciona</h3>
+        <p>Para o técnico no sol, preto quase puro sobre branco puro é o contraste mais brutal possível — hierarquia por tamanho e peso se lê num relance, sem depender de cor nenhuma. Para o gestor, o relatório deixa de parecer tela de app e passa a parecer documento lavrado: o selo dourado no "Aprovado" transmite exatamente a imagem de empresa séria que ele quer entregar ao cliente final. Os chips funcionam por palavra e forma de borda (tracejada, cheia, preenchida), nunca só por cor.</p>
+        <h3>Paleta</h3>
+        <div class="swatches">
+          <div class="sw"><span class="cor" style="background:#FFFFFF"></span><code>#FFFFFF</code><small>papel — fundo da tela e dos cards</small></div><div class="sw"><span class="cor" style="background:#141210"></span><code>#141210</code><small>tinta — títulos, botão primário, chip Devolvido</small></div><div class="sw"><span class="cor" style="background:#5C5750"></span><code>#5C5750</code><small>grafite — metadados e texto secundário (AA sobre branco)</small></div><div class="sw"><span class="cor" style="background:#DAD5CC"></span><code>#DAD5CC</code><small>fio — hairlines, bordas de card e chips neutros</small></div><div class="sw"><span class="cor" style="background:#C9A227"></span><code>#C9A227</code><small>ouro claro — brilho do selo e filete do botão</small></div><div class="sw"><span class="cor" style="background:#7A5C12"></span><code>#7A5C12</code><small>ouro escuro — texto do chip Aprovado (AA sobre branco)</small></div><div class="sw"><span class="cor" style="background:#2F6B3F"></span><code>#2F6B3F</code><small>verde discreto — apenas a bolinha de online (acompanhada de texto)</small></div>
+        </div>
+        <h3>Fontes</h3>
+        <p>Fraunces · Karla</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="opcao" id="opcao-8">
+    <h2><span class="num">8</span> Oficina</h2>
+    <div class="linha">
+      <div class="mock"><section id="dir-oficina">
+<style>
+#dir-oficina { display: flex; justify-content: center; padding: 32px 12px; background: #EAE0C8; font-family: 'Karla', sans-serif; }
+#dir-oficina * { margin: 0; padding: 0; box-sizing: border-box; }
+#dir-oficina .of-phone { width: 390px; max-width: 100%; background: #241F17; border-radius: 46px; padding: 10px; box-shadow: 0 18px 40px rgba(35,28,15,.35), inset 0 1px 0 rgba(255,255,255,.18); }
+#dir-oficina .of-screen { background: #F4EBD6; border-radius: 37px; overflow: hidden; background-image: repeating-linear-gradient(45deg, rgba(133,110,60,.028) 0 2px, transparent 2px 14px); }
+#dir-oficina .of-notch { width: 118px; height: 26px; margin: 8px auto 0; background: #241F17; border-radius: 14px; }
+#dir-oficina .of-header { margin-top: -34px; padding: 46px 18px 18px; background: linear-gradient(180deg, #215543 0%, #1C4A38 70%, #173D2E 100%); position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 3px solid #C05A21; box-shadow: 0 2px 0 rgba(23,45,34,.35); }
+#dir-oficina .of-header::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 7px, rgba(255,253,240,.05) 7px 8px); pointer-events: none; }
+#dir-oficina .of-badge { width: 158px; height: auto; display: block; filter: drop-shadow(0 2px 2px rgba(10,25,18,.35)); position: relative; }
+#dir-oficina .of-hstatus { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; position: relative; }
+#dir-oficina .of-online { display: inline-flex; align-items: center; gap: 7px; color: #F6EDD8; font-size: 16px; font-weight: 700; }
+#dir-oficina .of-dot { width: 11px; height: 11px; border-radius: 50%; background: #8FD9A0; border: 2px solid #0F2B20; animation: dir-oficina-pulse 2.4s ease-in-out infinite; }
+#dir-oficina .of-tosend { display: inline-block; background: #A8490F; color: #FFF3DD; font-size: 15px; font-weight: 800; padding: 6px 12px; border-radius: 7px; border: 2px solid #7A320A; box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 1px 2px rgba(20,15,5,.3); letter-spacing: .02em; }
+#dir-oficina .of-body { padding: 18px 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+#dir-oficina .of-primary { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 58px; border: 2px solid #0F2B20; border-radius: 14px; background: linear-gradient(180deg, #26604B 0%, #1C4A38 55%, #163B2C 100%); color: #F8EFD9; font-family: 'Fraunces', serif; font-weight: 700; font-size: 21px; cursor: pointer; box-shadow: inset 0 2px 0 rgba(255,251,235,.28), inset 0 -3px 0 rgba(8,22,16,.35), 0 3px 6px rgba(46,36,18,.25); }
+#dir-oficina .of-primary:active { transform: translateY(1px); }
+#dir-oficina .of-sec { display: flex; align-items: center; gap: 10px; margin-top: 6px; font-family: 'Fraunces', serif; font-style: italic; font-weight: 700; font-size: 19px; color: #1C4A38; }
+#dir-oficina .of-sec::after { content: ""; flex: 1; border-top: 2px solid #D9CBA6; }
+#dir-oficina .of-sec .of-spark { color: #C05A21; font-style: normal; font-size: 14px; }
+#dir-oficina .of-card { background: #FFFCF1; border: 1px solid #E0D3B0; border-left: 4px solid #1C4A38; border-radius: 12px; padding: 14px 14px 12px; min-height: 48px; box-shadow: 0 1px 0 #D8CBAA; display: flex; flex-direction: column; gap: 6px; }
+#dir-oficina .of-card.of-card--pending { border-left-color: #A8490F; }
+#dir-oficina .of-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: 18px; color: #23352C; }
+#dir-oficina .of-meta { font-size: 16px; color: #5C5443; }
+#dir-oficina .of-chiprow { margin-top: 4px; }
+#dir-oficina .of-chip { position: relative; display: inline-block; padding: 6px 26px; border-radius: 7px; font-size: 15px; font-weight: 800; background: #FFF9EA; border: 2px solid #8A8272; color: #3F4A44; box-shadow: inset 0 0 0 2px rgba(255,255,255,.65), inset 0 -2px 0 rgba(90,75,40,.12), 0 1px 2px rgba(60,48,22,.18); }
+#dir-oficina .of-chip::before, #dir-oficina .of-chip::after { content: ""; position: absolute; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F2EEE2, #A8A08C 60%, #6E6753); box-shadow: inset 0 0 0 1px rgba(70,60,40,.45); }
+#dir-oficina .of-chip::before { left: 8px; }
+#dir-oficina .of-chip::after { right: 8px; }
+#dir-oficina .of-chip--wait { background: #FFF4D6; border-color: #A87A1C; color: #6B4A06; }
+#dir-oficina .of-chip--ok { background: #EDF5E6; border-color: #1C4A38; color: #1D5334; }
+#dir-oficina .of-chip--back { background: #FDEEDF; border-color: #C05A21; color: #96430E; }
+#dir-oficina .of-chip--sent { background: #F0F1EA; border-color: #5C6660; color: #3F4A44; }
+#dir-oficina .of-note { margin-top: 2px; background: #FBE9DC; border-left: 3px solid #C05A21; border-radius: 0 8px 8px 0; padding: 8px 10px; font-size: 16px; color: #8A3407; }
+#dir-oficina .of-note strong { font-weight: 800; }
+#dir-oficina .of-foot { text-align: center; font-size: 16px; color: #5C5443; padding: 2px 10px 6px; }
+@keyframes dir-oficina-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(143,217,160,.55); } 50% { box-shadow: 0 0 0 6px rgba(143,217,160,0); } }
+@media (prefers-reduced-motion: reduce) { #dir-oficina .of-dot { animation: none; } }
+</style>
+<div class="of-phone">
+  <div class="of-screen">
+    <div class="of-notch"></div>
+    <header class="of-header">
+      <svg class="of-badge" viewBox="0 0 168 84" role="img" aria-label="EmCampo — relatórios de campo">
+        <ellipse cx="84" cy="42" rx="81" ry="39" fill="#F6EDD8" stroke="#0F2B20" stroke-width="2"/>
+        <ellipse cx="84" cy="42" rx="76" ry="34.5" fill="none" stroke="#C05A21" stroke-width="3.5"/>
+        <ellipse cx="84" cy="42" rx="69" ry="28" fill="none" stroke="#1C4A38" stroke-width="1.5"/>
+        <path d="M32 22 Q62 9 104 12" stroke="#FFFFFF" stroke-opacity=".5" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M17 42 l4.5 -4.5 4.5 4.5 -4.5 4.5 Z" fill="#C05A21"/>
+        <path d="M142 42 l4.5 -4.5 4.5 4.5 -4.5 4.5 Z" fill="#C05A21"/>
+        <text x="84" y="47" text-anchor="middle" font-family="Fraunces, serif" font-weight="900" font-size="27" fill="#1C4A38">EmCampo</text>
+        <text x="84" y="63" text-anchor="middle" font-family="Karla, sans-serif" font-weight="700" font-size="8" letter-spacing="1.5" fill="#96430E">RELATÓRIOS DE CAMPO</text>
+      </svg>
+      <div class="of-hstatus">
+        <span class="of-online"><span class="of-dot" aria-hidden="true"></span>online</span>
+        <span class="of-tosend">1 p/ enviar</span>
+      </div>
+    </header>
+    <div class="of-body">
+      <button class="of-primary" type="button">+ Novo relatório</button>
+
+      <h2 class="of-sec"><span class="of-spark" aria-hidden="true">&#9670;</span>No aparelho</h2>
+      <article class="of-card of-card--pending">
+        <h3 class="of-title">Manutenção preventiva</h3>
+        <p class="of-meta">Condomínio Jardim das Flores &middot; 22/07/26</p>
+        <p class="of-chiprow"><span class="of-chip of-chip--wait">Aguardando envio</span></p>
+      </article>
+
+      <h2 class="of-sec"><span class="of-spark" aria-hidden="true">&#9670;</span>Enviados</h2>
+      <article class="of-card">
+        <h3 class="of-title">Instalação de split</h3>
+        <p class="of-meta">Padaria Estrela &middot; 21/07/26</p>
+        <p class="of-chiprow"><span class="of-chip of-chip--ok">Aprovado</span></p>
+      </article>
+      <article class="of-card">
+        <h3 class="of-title">Manutenção preventiva</h3>
+        <p class="of-meta">Cond. Jardim das Flores &middot; 20/07/26</p>
+        <p class="of-chiprow"><span class="of-chip of-chip--back">Devolvido</span></p>
+        <p class="of-note"><strong>Gestor:</strong> refazer foto do quadro elétrico</p>
+      </article>
+      <article class="of-card">
+        <h3 class="of-title">Dedetização</h3>
+        <p class="of-meta">Mercado Bom Preço &middot; 19/07/26</p>
+        <p class="of-chiprow"><span class="of-chip of-chip--sent">Enviado</span></p>
+      </article>
+
+      <p class="of-foot">Sem sinal? Tudo fica guardado no aparelho.</p>
+    </div>
+  </div>
+</div>
+</section></div>
+      <aside>
+        <h3>Conceito</h3>
+        <p>Uma oficina mecânica retrô impecável: creme quente de parede caiada, header verde-garrafa com pinstripes de macacão e um badge oval esmaltado como os que ficam pendurados sobre a bancada. Os status são plaquinhas de metal esmaltado com parafusos nos cantos — tradição de ofício, orgulho artesanal, serifa gorda no que importa.</p>
+        <h3>Por que funciona</h3>
+        <p>O técnico enxerga tudo no sol: base clara de alto contraste, títulos serifados gordos, chips que se leem pelo texto (cada plaquinha tem rótulo escrito, não só cor) e alvos de toque generosos. Para o gestor, o visual de esmalte e serifa remete a marca de ferramenta tradicional — empresa com décadas de estrada, não startup genérica — exatamente a imagem que ele quer passar ao cliente final. A ousadia fica concentrada num único elemento-assinatura (badge oval + plaquinhas esmaltadas); o resto é disciplina e legibilidade brutal.</p>
+        <h3>Paleta</h3>
+        <div class="swatches">
+          <div class="sw"><span class="cor" style="background:#1C4A38"></span><code>#1C4A38</code><small>verde-garrafa — header, botão primário, títulos de seção</small></div><div class="sw"><span class="cor" style="background:#F4EBD6"></span><code>#F4EBD6</code><small>creme de parede — fundo da tela</small></div><div class="sw"><span class="cor" style="background:#FFFCF1"></span><code>#FFFCF1</code><small>creme claro — face dos cards e das plaquinhas esmaltadas</small></div><div class="sw"><span class="cor" style="background:#C05A21"></span><code>#C05A21</code><small>laranja queimado — aro do badge, acentos e chip devolvido</small></div><div class="sw"><span class="cor" style="background:#A8490F"></span><code>#A8490F</code><small>laranja escuro — plaqueta '1 p/ enviar' e textos laranja com contraste AA</small></div><div class="sw"><span class="cor" style="background:#23352C"></span><code>#23352C</code><small>verde-tinta quase preto — texto principal</small></div><div class="sw"><span class="cor" style="background:#5C5443"></span><code>#5C5443</code><small>marrom-graxa suave — metadados e texto secundário</small></div><div class="sw"><span class="cor" style="background:#8FD9A0"></span><code>#8FD9A0</code><small>verde-sinal claro — bolinha de status online</small></div>
+        </div>
+        <h3>Fontes</h3>
+        <p>Fraunces · Karla</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="opcao" id="opcao-9">
+    <h2><span class="num">9</span> Radar</h2>
+    <div class="linha">
+      <div class="mock"><section id="dir-radar">
+<style>
+#dir-radar{font-family:'Karla',system-ui,sans-serif;font-size:16px;line-height:1.4;color:#E8F1F8;display:flex;justify-content:center;padding:28px 12px;background:transparent}
+#dir-radar *{margin:0;padding:0;box-sizing:border-box}
+#dir-radar .dr-phone{width:390px;max-width:100%;border-radius:46px;padding:10px;background:linear-gradient(180deg,#1A2C3E,#060D15 22%,#040A11);box-shadow:0 24px 60px rgba(2,8,16,.55),inset 0 1px 0 rgba(143,208,240,.25)}
+#dir-radar .dr-screen{position:relative;border-radius:37px;overflow:hidden;padding:14px 16px 24px;background:radial-gradient(130% 80% at 50% -5%,rgba(63,224,210,.13),transparent 60%),linear-gradient(rgba(120,180,215,.065) 1px,transparent 1px) 0 0/100% 26px,linear-gradient(90deg,rgba(120,180,215,.065) 1px,transparent 1px) 0 0/26px 100%,linear-gradient(180deg,#0E2134,#0B1A29 60%,#0C1D2E)}
+#dir-radar .dr-notch{width:118px;height:26px;border-radius:14px;background:#040A11;margin:0 auto 8px}
+#dir-radar .dr-map{position:absolute;left:0;top:170px;z-index:0;opacity:.4;pointer-events:none}
+#dir-radar .dr-statusbar,#dir-radar .dr-header,#dir-radar .dr-cta,#dir-radar .dr-sec,#dir-radar .dr-card,#dir-radar .dr-sync{position:relative;z-index:1}
+#dir-radar .dr-statusbar{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:13px;color:#9FB6C9;padding:0 6px;margin-bottom:12px}
+#dir-radar .dr-sbicons{display:flex;align-items:center;gap:6px}
+#dir-radar .dr-header{display:flex;justify-content:space-between;align-items:flex-start;margin:4px 2px 6px}
+#dir-radar .dr-brand{display:flex;align-items:center;gap:10px}
+#dir-radar .dr-logo{font-size:23px;font-weight:800;letter-spacing:-.3px;line-height:1.05}
+#dir-radar .dr-logo b{color:#3FE0D2}
+#dir-radar .dr-tag{font-size:13px;color:#9FB6C9;letter-spacing:.4px;margin-top:2px}
+#dir-radar .dr-hright{display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+#dir-radar .dr-online{display:inline-flex;align-items:center;gap:8px;padding:5px 11px 5px 5px;border-radius:999px;border:1px solid rgba(63,224,210,.35);background:rgba(63,224,210,.07)}
+#dir-radar .dr-scope{position:relative;width:26px;height:26px;border-radius:50%;flex:none;overflow:hidden;border:1px solid rgba(63,224,210,.55);background:radial-gradient(circle at 50% 50%,#3FE0D2 0 2px,rgba(63,224,210,0) 2.6px),repeating-radial-gradient(circle at 50% 50%,rgba(63,224,210,.3) 0 1px,transparent 1px 6px),linear-gradient(to bottom,transparent 47%,rgba(63,224,210,.28) 47% 53%,transparent 53%),linear-gradient(to right,transparent 47%,rgba(63,224,210,.28) 47% 53%,transparent 53%),#0A1826}
+#dir-radar .dr-sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(63,224,210,.9),rgba(63,224,210,.22) 55deg,transparent 95deg 360deg);animation:dirRadarSweep 3.6s linear infinite}
+@keyframes dirRadarSweep{to{transform:rotate(360deg)}}
+#dir-radar .dr-online em{font-style:normal;font-size:13px;font-weight:800;letter-spacing:.4px;color:#5CE6A9;display:inline-flex;align-items:center;gap:6px}
+#dir-radar .dr-dot{width:7px;height:7px;border-radius:50%;background:#5CE6A9;box-shadow:0 0 0 3px rgba(92,230,169,.18)}
+#dir-radar .dr-badge{font-size:13px;font-weight:800;letter-spacing:.3px;color:#FFC966;border:1px solid rgba(255,201,102,.5);background:rgba(255,201,102,.08);padding:6px 11px;border-radius:999px}
+#dir-radar .dr-scan{height:1px;margin:12px 2px 16px;background:linear-gradient(90deg,rgba(63,224,210,.65),rgba(63,224,210,.08) 70%,transparent)}
+#dir-radar .dr-cta{display:flex;align-items:center;justify-content:center;width:100%;min-height:58px;border:0;border-radius:15px;cursor:pointer;font-family:'Karla',system-ui,sans-serif;font-size:18px;font-weight:800;letter-spacing:.2px;color:#06131F;background:linear-gradient(180deg,#4FE8DA,#2FC9BC);box-shadow:0 12px 26px rgba(63,224,210,.28),inset 0 1px 0 rgba(255,255,255,.45)}
+#dir-radar .dr-sec{display:flex;align-items:center;gap:10px;margin:22px 2px 10px;font-size:13px;font-weight:800;letter-spacing:1.4px;color:#6FCFC6}
+#dir-radar .dr-sec::before{content:"";width:16px;height:2px;flex:none;background:linear-gradient(90deg,#3FE0D2,rgba(63,224,210,.2))}
+#dir-radar .dr-sec::after{content:"";height:1px;flex:1;background:rgba(120,180,215,.18)}
+#dir-radar .dr-card{display:flex;gap:12px;padding:15px 14px;border-radius:16px;min-height:72px;background:linear-gradient(180deg,#16declara 0,#152A3E,#122437);background:linear-gradient(180deg,#152A3E,#122437);border:1px solid rgba(143,208,240,.15);box-shadow:0 8px 20px rgba(4,12,20,.4)}
+#dir-radar .dr-card + .dr-card{margin-top:10px}
+#dir-radar .dr-blip{width:10px;height:10px;border-radius:50%;flex:none;margin-top:7px}
+#dir-radar .dr-blip--wait{background:#FFC966;box-shadow:0 0 0 4px rgba(255,201,102,.15)}
+#dir-radar .dr-blip--ok{background:#5CE6A9;box-shadow:0 0 0 4px rgba(92,230,169,.15)}
+#dir-radar .dr-blip--dev{background:#FFA091;box-shadow:0 0 0 4px rgba(255,160,145,.15)}
+#dir-radar .dr-blip--sent{background:#8FD0F0;box-shadow:0 0 0 4px rgba(143,208,240,.15)}
+#dir-radar .dr-cbody{flex:1;min-width:0}
+#dir-radar .dr-card h3{font-size:17px;font-weight:800;letter-spacing:-.1px}
+#dir-radar .dr-meta{font-size:16px;color:#9FB6C9;margin-top:3px}
+#dir-radar .dr-crow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px}
+#dir-radar .dr-chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:800;letter-spacing:.3px;line-height:1;padding:7px 11px;border-radius:999px;border:1px solid}
+#dir-radar .dr-chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+#dir-radar .dr-chip--wait{color:#FFC966;border-color:rgba(255,201,102,.45);background:rgba(255,201,102,.08)}
+#dir-radar .dr-chip--ok{color:#5CE6A9;border-color:rgba(92,230,169,.45);background:rgba(92,230,169,.08)}
+#dir-radar .dr-chip--dev{color:#FFA091;border-color:rgba(255,160,145,.5);background:rgba(255,160,145,.09)}
+#dir-radar .dr-chip--sent{color:#8FD0F0;border-color:rgba(143,208,240,.45);background:rgba(143,208,240,.08)}
+#dir-radar .dr-ctime{font-size:13px;font-weight:700;color:#9FB6C9;letter-spacing:.4px}
+#dir-radar .dr-note{display:flex;align-items:flex-start;gap:9px;margin-top:11px;padding:10px 12px;border-radius:10px;background:rgba(255,160,145,.09);border:1px solid rgba(255,160,145,.24);font-size:16px;line-height:1.35;color:#F5CFC7}
+#dir-radar .dr-note svg{flex:none;margin-top:2px}
+#dir-radar .dr-note strong{color:#FFA091;font-weight:800}
+#dir-radar .dr-sync{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-size:13px;font-weight:700;letter-spacing:.4px;color:#9FB6C9}
+@media (prefers-reduced-motion:reduce){#dir-radar .dr-sweep{animation:none}}
+</style>
+<div class="dr-phone">
+  <div class="dr-screen">
+    <div class="dr-notch" aria-hidden="true"></div>
+
+    <svg class="dr-map" width="358" height="500" viewBox="0 0 358 500" fill="none" aria-hidden="true">
+      <path d="M30 26 C 130 62, 86 168, 188 198 S 332 292, 252 392 S 138 452, 306 486" stroke="#3FE0D2" stroke-width="1.4" stroke-dasharray="2 8" stroke-linecap="round" opacity=".55"/>
+      <circle cx="30" cy="26" r="3" fill="#3FE0D2" opacity=".6"/>
+      <circle cx="188" cy="198" r="3" fill="#3FE0D2" opacity=".65"/>
+      <circle cx="188" cy="198" r="9" stroke="#3FE0D2" stroke-width="1" opacity=".35"/>
+      <circle cx="188" cy="198" r="16" stroke="#3FE0D2" stroke-width="1" opacity=".16"/>
+      <circle cx="252" cy="392" r="3" fill="#3FE0D2" opacity=".55"/>
+      <circle cx="306" cy="486" r="3" fill="#3FE0D2" opacity=".45"/>
+    </svg>
+
+    <div class="dr-statusbar">
+      <span>09:41</span>
+      <span class="dr-sbicons">
+        <svg width="17" height="12" viewBox="0 0 17 12" fill="none" aria-hidden="true"><rect x="0" y="7" width="3" height="5" rx="1" fill="#9FB6C9"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1" fill="#9FB6C9"/><rect x="9" y="2" width="3" height="10" rx="1" fill="#9FB6C9"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#3FE0D2"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none" aria-hidden="true"><rect x=".7" y=".7" width="20" height="10.6" rx="3" stroke="#9FB6C9" stroke-width="1.4"/><rect x="2.6" y="2.6" width="13" height="6.8" rx="1.6" fill="#5CE6A9"/><path d="M23 4v4c1.2-.3 1.2-3.7 0-4Z" fill="#9FB6C9"/></svg>
+      </span>
+    </div>
+
+    <header class="dr-header">
+      <div class="dr-brand">
+        <svg width="38" height="38" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <circle cx="18" cy="18" r="14" stroke="#3FE0D2" stroke-width="1.6" opacity=".9"/>
+          <circle cx="18" cy="18" r="8.5" stroke="#3FE0D2" stroke-width="1.2" opacity=".45"/>
+          <path d="M18 1.5v4.2M18 30.3v4.2M1.5 18h4.2M30.3 18h4.2" stroke="#3FE0D2" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+          <path d="M18 18 26 10.2" stroke="#3FE0D2" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
+          <circle cx="23.6" cy="12.6" r="2" fill="#3FE0D2"/>
+          <circle cx="18" cy="18" r="2.6" fill="#3FE0D2"/>
+        </svg>
+        <div>
+          <h1 class="dr-logo"><b>Em</b>Campo</h1>
+          <p class="dr-tag">central do técnico</p>
+        </div>
+      </div>
+      <div class="dr-hright">
+        <span class="dr-online"><span class="dr-scope" aria-hidden="true"><span class="dr-sweep"></span></span><em><i class="dr-dot" aria-hidden="true"></i>online</em></span>
+        <span class="dr-badge">1 p/ enviar</span>
+      </div>
+    </header>
+
+    <div class="dr-scan" aria-hidden="true"></div>
+
+    <button class="dr-cta" type="button">+ Novo relatório</button>
+
+    <h2 class="dr-sec">No aparelho</h2>
+    <article class="dr-card">
+      <span class="dr-blip dr-blip--wait" aria-hidden="true"></span>
+      <div class="dr-cbody">
+        <h3>Manutenção preventiva</h3>
+        <p class="dr-meta">Condomínio Jardim das Flores · 22/07/26</p>
+        <div class="dr-crow">
+          <span class="dr-chip dr-chip--wait"><i aria-hidden="true"></i>Aguardando envio</span>
+          <span class="dr-ctime">salvo aqui</span>
+        </div>
+      </div>
+    </article>
+
+    <h2 class="dr-sec">Enviados</h2>
+    <article class="dr-card">
+      <span class="dr-blip dr-blip--ok" aria-hidden="true"></span>
+      <div class="dr-cbody">
+        <h3>Instalação de split</h3>
+        <p class="dr-meta">Padaria Estrela · 21/07/26</p>
+        <div class="dr-crow">
+          <span class="dr-chip dr-chip--ok"><i aria-hidden="true"></i>Aprovado</span>
+        </div>
+      </div>
+    </article>
+    <article class="dr-card">
+      <span class="dr-blip dr-blip--dev" aria-hidden="true"></span>
+      <div class="dr-cbody">
+        <h3>Manutenção preventiva</h3>
+        <p class="dr-meta">Cond. Jardim das Flores · 20/07/26</p>
+        <div class="dr-crow">
+          <span class="dr-chip dr-chip--dev"><i aria-hidden="true"></i>Devolvido</span>
+        </div>
+        <p class="dr-note">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13.5 6.5v3a3 3 0 0 1-3 3H3.8" stroke="#FFA091" stroke-width="1.6" stroke-linecap="round"/><path d="M6.3 9.8 3.5 12.5l2.8 2.7" stroke="#FFA091" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10.5" cy="3.5" r="2.3" stroke="#FFA091" stroke-width="1.4"/></svg>
+          <span><strong>Gestor:</strong> refazer foto do quadro elétrico</span>
+        </p>
+      </div>
+    </article>
+    <article class="dr-card">
+      <span class="dr-blip dr-blip--sent" aria-hidden="true"></span>
+      <div class="dr-cbody">
+        <h3>Dedetização</h3>
+        <p class="dr-meta">Mercado Bom Preço · 19/07/26</p>
+        <div class="dr-crow">
+          <span class="dr-chip dr-chip--sent"><i aria-hidden="true"></i>Enviado</span>
+        </div>
+      </div>
+    </article>
+
+    <p class="dr-sync">
+      <svg width="15" height="13" viewBox="0 0 15 13" fill="none" aria-hidden="true"><path d="M2 6.2a7.8 7.8 0 0 1 11 0" stroke="#6FCFC6" stroke-width="1.5" stroke-linecap="round"/><path d="M4.4 8.8a4.4 4.4 0 0 1 6.2 0" stroke="#6FCFC6" stroke-width="1.5" stroke-linecap="round"/><circle cx="7.5" cy="11.2" r="1.3" fill="#6FCFC6"/></svg>
+      Última sincronização às 09:38
+    </p>
+  </div>
+</div>
+</section></div>
+      <aside>
+        <h3>Conceito</h3>
+        <p>Central de operações logísticas: base azul-aço profundo com grade cartográfica fina, ciano de tela de radar e cada relatório tratado como um blip monitorado no mapa. A assinatura é o mini-scope de radar no indicador "online", com varredura contínua que diz "estamos de olho, nada se perde".</p>
+        <h3>Por que funciona</h3>
+        <p>Para o técnico no sol, o fundo escuro azulado com ciano de altíssimo contraste e cards grandes empilhados dá legibilidade brutal e hierarquia óbvia — título, local, status, nada compete. Para o gestor, a metáfora de central de controle comunica operação sob comando e rastreabilidade, imagem de empresa organizada que monitora cada serviço em tempo real — território claramente distinto do grafite industrial, do papel de prancheta e do verde de painel noturno. Os chips carregam texto + ponto colorido, e todos os alvos passam de 48px.</p>
+        <h3>Paleta</h3>
+        <div class="swatches">
+          <div class="sw"><span class="cor" style="background:#0C1D2E"></span><code>#0C1D2E</code><small>fundo azul-aço profundo da tela</small></div><div class="sw"><span class="cor" style="background:#152A3E"></span><code>#152A3E</code><small>superfície dos cards</small></div><div class="sw"><span class="cor" style="background:#3FE0D2"></span><code>#3FE0D2</code><small>ciano-radar: ação primária, varredura, blips e grade viva</small></div><div class="sw"><span class="cor" style="background:#E8F1F8"></span><code>#E8F1F8</code><small>texto principal</small></div><div class="sw"><span class="cor" style="background:#9FB6C9"></span><code>#9FB6C9</code><small>texto secundário e grade cartográfica</small></div><div class="sw"><span class="cor" style="background:#FFC966"></span><code>#FFC966</code><small>status aguardando envio e badge de pendência</small></div><div class="sw"><span class="cor" style="background:#5CE6A9"></span><code>#5CE6A9</code><small>status aprovado e indicador online</small></div><div class="sw"><span class="cor" style="background:#FFA091"></span><code>#FFA091</code><small>status devolvido e nota do gestor</small></div><div class="sw"><span class="cor" style="background:#8FD0F0"></span><code>#8FD0F0</code><small>status enviado</small></div>
+        </div>
+        <h3>Fontes</h3>
+        <p>Karla</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="opcao" id="opcao-10">
+    <h2><span class="num">10</span> Azulejo</h2>
+    <div class="linha">
+      <div class="mock"><section id="dir-azulejo">
+<style>
+#dir-azulejo{display:flex;justify-content:center;padding:24px 8px;font-family:'Karla',sans-serif;}
+#dir-azulejo div,#dir-azulejo header,#dir-azulejo footer,#dir-azulejo article,#dir-azulejo button,#dir-azulejo span,#dir-azulejo h1,#dir-azulejo h2,#dir-azulejo h3,#dir-azulejo p,#dir-azulejo i{box-sizing:border-box;margin:0;padding:0;}
+#dir-azulejo .az-phone{width:390px;max-width:100%;background:linear-gradient(180deg,#16307E,#10245E);border-radius:50px;padding:11px;box-shadow:0 18px 40px rgba(16,36,94,.35),inset 0 1px 0 rgba(255,255,255,.25);}
+#dir-azulejo .az-screen{background:#F4F7FC;border-radius:40px;overflow:hidden;display:flex;flex-direction:column;}
+#dir-azulejo .az-friso{display:block;width:100%;height:auto;}
+#dir-azulejo .az-topo{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:14px 16px 10px;}
+#dir-azulejo .az-marca{display:flex;align-items:center;gap:9px;}
+#dir-azulejo .az-marca h1{font-family:'Fraunces',serif;font-weight:600;font-size:24px;letter-spacing:-.01em;color:#10245E;}
+#dir-azulejo .az-marca h1 b{font-weight:600;color:#1740B5;}
+#dir-azulejo .az-status{display:flex;align-items:center;gap:8px;}
+#dir-azulejo .az-online{display:inline-flex;align-items:center;gap:6px;background:#EDF8F0;border:1px solid #C4E2CE;color:#166239;font-size:14px;font-weight:700;padding:6px 11px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9);}
+#dir-azulejo .az-dot{width:9px;height:9px;border-radius:50%;background:#1F9D55;box-shadow:0 0 0 0 rgba(31,157,85,.45);animation:az-pulso 2.4s ease-out infinite;}
+#dir-azulejo .az-badge{background:#1740B5;color:#FFFFFF;font-size:14px;font-weight:800;padding:7px 12px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 2px 4px rgba(23,64,181,.3);}
+#dir-azulejo .az-conteudo{padding:6px 16px 20px;display:flex;flex-direction:column;gap:14px;}
+#dir-azulejo .az-novo{width:100%;min-height:58px;border:0;cursor:pointer;border-radius:14px;background:linear-gradient(180deg,#2B57D6,#1740B5);color:#FFFFFF;font-family:'Karla',sans-serif;font-size:19px;font-weight:800;letter-spacing:.01em;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 5px 12px rgba(23,64,181,.32);}
+#dir-azulejo .az-novo span{font-size:24px;font-weight:700;line-height:1;}
+#dir-azulejo .az-sec{display:flex;align-items:center;gap:9px;margin-top:6px;}
+#dir-azulejo .az-sec h2{font-family:'Fraunces',serif;font-weight:600;font-size:20px;color:#10245E;}
+#dir-azulejo .az-sec i{flex:1;height:1px;background:#D2DEF3;}
+#dir-azulejo .az-card{background:#FFFFFF;border:1px solid #DBE4F6;border-radius:14px;padding:15px 16px;display:flex;flex-direction:column;gap:7px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 6px rgba(23,64,181,.08);}
+#dir-azulejo .az-card h3{font-size:17px;font-weight:800;color:#14225C;letter-spacing:.005em;}
+#dir-azulejo .az-meta{font-size:16px;color:#46557E;}
+#dir-azulejo .az-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;}
+#dir-azulejo .az-chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:800;padding:6px 12px;border-radius:9px;border:1px solid;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(20,34,92,.12);}
+#dir-azulejo .az-chip svg{flex:none;}
+#dir-azulejo .az-chip.aguarda{background:#FFF3D6;border-color:#E7CE8C;color:#7A5300;}
+#dir-azulejo .az-chip.aprovado{background:#E1F3E6;border-color:#AEDBBD;color:#14622F;}
+#dir-azulejo .az-chip.devolvido{background:#FBE7E1;border-color:#EBB9A8;color:#9A2E12;}
+#dir-azulejo .az-chip.enviado{background:#E3ECFC;border-color:#BACFF2;color:#1740B5;}
+#dir-azulejo .az-nota{background:#FBEFE9;border-left:4px solid #B4441F;border-radius:0 10px 10px 0;padding:10px 12px;font-size:16px;color:#7E2C10;line-height:1.4;}
+#dir-azulejo .az-nota b{font-weight:800;}
+#dir-azulejo .az-rodape{margin-top:auto;}
+#dir-azulejo .az-homebar{width:130px;height:5px;border-radius:99px;background:#10245E;opacity:.35;margin:8px auto 12px;}
+@keyframes az-pulso{0%{box-shadow:0 0 0 0 rgba(31,157,85,.45);}70%{box-shadow:0 0 0 7px rgba(31,157,85,0);}100%{box-shadow:0 0 0 0 rgba(31,157,85,0);}}
+@media (prefers-reduced-motion:reduce){#dir-azulejo .az-dot{animation:none;}}
+</style>
+<div class="az-phone">
+  <div class="az-screen">
+    <svg class="az-friso" width="390" height="42" viewBox="0 0 390 42" aria-hidden="true">
+      <defs>
+        <pattern id="az-pat-topo" width="39" height="39" patternUnits="userSpaceOnUse">
+          <rect width="39" height="39" fill="#FFFFFF"/>
+          <circle cx="0" cy="0" r="9" fill="#1740B5"/><circle cx="39" cy="0" r="9" fill="#1740B5"/>
+          <circle cx="0" cy="39" r="9" fill="#1740B5"/><circle cx="39" cy="39" r="9" fill="#1740B5"/>
+          <circle cx="19.5" cy="10.5" r="6.4" fill="#2B57D6"/><circle cx="28.5" cy="19.5" r="6.4" fill="#2B57D6"/>
+          <circle cx="19.5" cy="28.5" r="6.4" fill="#2B57D6"/><circle cx="10.5" cy="19.5" r="6.4" fill="#2B57D6"/>
+          <circle cx="19.5" cy="19.5" r="4.4" fill="#FFFFFF"/><circle cx="19.5" cy="19.5" r="1.8" fill="#1740B5"/>
+          <path d="M0 .5H39M.5 0V39" stroke="#C6D4F1" stroke-width="1" fill="none"/>
+        </pattern>
+      </defs>
+      <rect width="390" height="39" fill="url(#az-pat-topo)"/>
+      <rect y="39" width="390" height="3" fill="#1740B5"/>
+    </svg>
+    <header class="az-topo">
+      <div class="az-marca">
+        <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+          <rect width="30" height="30" rx="7" fill="#1740B5"/>
+          <circle cx="15" cy="8.6" r="4.4" fill="#FFFFFF"/><circle cx="21.4" cy="15" r="4.4" fill="#FFFFFF"/>
+          <circle cx="15" cy="21.4" r="4.4" fill="#FFFFFF"/><circle cx="8.6" cy="15" r="4.4" fill="#FFFFFF"/>
+          <circle cx="15" cy="15" r="3.4" fill="#1740B5"/><circle cx="15" cy="15" r="1.4" fill="#FFFFFF"/>
+        </svg>
+        <h1><b>Em</b>Campo</h1>
+      </div>
+      <div class="az-status">
+        <span class="az-online"><i class="az-dot"></i>online</span>
+        <span class="az-badge">1 p/ enviar</span>
+      </div>
+    </header>
+    <div class="az-conteudo">
+      <button class="az-novo" type="button"><span>+</span> Novo relatório</button>
+
+      <div class="az-sec"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="7" y="-1" width="11.3" height="11.3" rx="2" transform="rotate(45 7 -1)" fill="#1740B5"/><circle cx="7" cy="7" r="2" fill="#FFFFFF"/></svg><h2>No aparelho</h2><i></i></div>
+      <article class="az-card">
+        <h3>Manutenção preventiva</h3>
+        <p class="az-meta">Condomínio Jardim das Flores · 22/07/26</p>
+        <div class="az-chips">
+          <span class="az-chip aguarda"><svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><circle cx="6.5" cy="6.5" r="5.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M6.5 3.6v3.2l2.2 1.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Aguardando envio</span>
+        </div>
+      </article>
+
+      <div class="az-sec"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="7" y="-1" width="11.3" height="11.3" rx="2" transform="rotate(45 7 -1)" fill="#1740B5"/><circle cx="7" cy="7" r="2" fill="#FFFFFF"/></svg><h2>Enviados</h2><i></i></div>
+      <article class="az-card">
+        <h3>Instalação de split</h3>
+        <p class="az-meta">Padaria Estrela · 21/07/26</p>
+        <div class="az-chips">
+          <span class="az-chip aprovado"><svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><path d="M2 7l3.2 3.2L11 3.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Aprovado</span>
+        </div>
+      </article>
+      <article class="az-card">
+        <h3>Manutenção preventiva</h3>
+        <p class="az-meta">Cond. Jardim das Flores · 20/07/26</p>
+        <div class="az-chips">
+          <span class="az-chip devolvido"><svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><path d="M11 4.2H4.6a2.7 2.7 0 100 5.4h2.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8.6 1.8L11 4.2 8.6 6.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Devolvido</span>
+        </div>
+        <p class="az-nota"><b>Gestor:</b> refazer foto do quadro elétrico</p>
+      </article>
+      <article class="az-card">
+        <h3>Dedetização</h3>
+        <p class="az-meta">Mercado Bom Preço · 19/07/26</p>
+        <div class="az-chips">
+          <span class="az-chip enviado"><svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><path d="M1.4 6.2L11.6 1.6 8.2 11.4 6 7.6 1.4 6.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Enviado</span>
+        </div>
+      </article>
+    </div>
+    <footer class="az-rodape">
+      <svg class="az-friso" width="390" height="16" viewBox="0 0 390 16" aria-hidden="true">
+        <defs>
+          <pattern id="az-pat-pe" width="26" height="16" patternUnits="userSpaceOnUse">
+            <rect width="26" height="16" fill="#FFFFFF"/>
+            <rect x="13" y="1.5" width="9.2" height="9.2" rx="1.5" transform="rotate(45 13 1.5)" fill="#1740B5"/>
+            <circle cx="13" cy="8" r="1.6" fill="#FFFFFF"/>
+          </pattern>
+        </defs>
+        <rect y="0" width="390" height="2.5" fill="#1740B5"/>
+        <rect y="2.5" width="390" height="13.5" fill="url(#az-pat-pe)"/>
+      </svg>
+      <div class="az-homebar"></div>
+    </footer>
+  </div>
+</div>
+</section></div>
+      <aside>
+        <h3>Conceito</h3>
+        <p>Fachada brasileira de azulejo português: base branca fresca com azul-cobalto vivo, um friso de azulejaria geométrica emoldurando a tela como a frente de uma casa bem cuidada. Cards e chips são pequenas peças de cerâmica — cantos suaves, brilho de esmalte no topo, sombra rasa de faiança — sobre um fundo claro que aguenta sol de meio-dia.</p>
+        <h3>Por que funciona</h3>
+        <p>Para o técnico, é uma tela clara de contraste brutal (cobalto quase preto sobre branco), hierarquia em blocos grandes e alvos generosos — legível no sol e com luva, sem enfeite no caminho do dedo. Para o gestor, azulejo é o código visual de estabelecimento sério e caprichado no Brasil: transmite tradição de ofício e fachada bem tratada, não startup genérica. E os chips-cerâmica carregam texto + ícone, então o status se lê mesmo sem distinguir cor.</p>
+        <h3>Paleta</h3>
+        <div class="swatches">
+          <div class="sw"><span class="cor" style="background:#1740B5"></span><code>#1740B5</code><small>azul-cobalto: ação primária, marca, friso de azulejaria</small></div><div class="sw"><span class="cor" style="background:#10245E"></span><code>#10245E</code><small>cobalto profundo: títulos, moldura do aparelho</small></div><div class="sw"><span class="cor" style="background:#F4F7FC"></span><code>#F4F7FC</code><small>branco-cal: fundo da tela</small></div><div class="sw"><span class="cor" style="background:#FFFFFF"></span><code>#FFFFFF</code><small>branco cerâmica: cards e peças do friso</small></div><div class="sw"><span class="cor" style="background:#46557E"></span><code>#46557E</code><small>ardósia azulada: texto secundário (meta dos cards)</small></div><div class="sw"><span class="cor" style="background:#1F9D55"></span><code>#1F9D55</code><small>verde-esmalte: indicador online e chip aprovado</small></div><div class="sw"><span class="cor" style="background:#7A5300"></span><code>#7A5300</code><small>ocre queimado: texto do chip aguardando envio</small></div><div class="sw"><span class="cor" style="background:#9A2E12"></span><code>#9A2E12</code><small>terracota escura: chip devolvido e nota do gestor</small></div>
+        </div>
+        <h3>Fontes</h3>
+        <p>Fraunces · Karla</p>
+      </aside>
+    </div>
+  </section>
   <div class="rodape">
     <strong>Escolha respondendo com o número.</strong> Pode misturar — ex.: “a 2, mas com os chips de status da 4”.
   </div>
