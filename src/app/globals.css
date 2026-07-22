@@ -26,8 +26,8 @@
   --color-info: #1e4e8c;
   --color-info-bg: #e1ebf7;
 
-  --font-sans: var(--font-nunito), system-ui, sans-serif;
-  --font-titulo: var(--font-karla), var(--font-nunito), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-titulo: var(--font-archivo), var(--font-manrope), system-ui, sans-serif;
 }
 
 body {

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Karla, Nunito_Sans } from "next/font/google";
+import { Archivo, Manrope } from "next/font/google";
 import "./globals.css";
 
-const karla = Karla({
-  variable: "--font-karla",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
 });
 
-const nunitoSans = Nunito_Sans({
-  variable: "--font-nunito",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
 });
 
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${karla.variable} ${nunitoSans.variable} h-full antialiased`}
+      className={`${archivo.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

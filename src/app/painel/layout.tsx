@@ -1,4 +1,5 @@
 import BotaoSair from "@/components/BotaoSair";
+import { LogoLockup } from "@/components/Logo";
 import NavPainel from "@/components/NavPainel";
 import { requireUser } from "@/lib/session";
 
@@ -10,7 +11,7 @@ export default async function PainelLayout({ children }: { children: React.React
       <header className="header-app text-white">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-4 py-3">
           <div className="flex flex-wrap items-center gap-4">
-            <span className="font-bold">EmCampo</span>
+            <LogoLockup className="text-white" />
             <NavPainel />
           </div>
           <div className="flex items-center gap-3 text-sm">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BotaoSair from "@/components/BotaoSair";
+import { LogoSimbolo } from "@/components/Logo";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 import AutoSync from "./AutoSync";
@@ -17,8 +18,9 @@ export default async function CampoLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-dvh bg-base">
       <header className="header-app sticky top-0 z-10 flex items-center justify-between px-4 py-3 text-white">
-        <Link href="/campo" className="truncate pr-2 text-base font-bold">
-          {titulo}
+        <Link href="/campo" className="flex min-w-0 items-center gap-2 pr-2">
+          <LogoSimbolo className="h-7 w-7 flex-none text-white" />
+          <span className="truncate font-titulo text-base font-extrabold tracking-tight">{titulo}</span>
         </Link>
         <div className="flex items-center gap-3">
           <AutoSync />

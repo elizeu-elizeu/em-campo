@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { LogoSimbolo } from "@/components/Logo";
 import RespostasView, { formatarValor } from "@/components/RespostasView";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
@@ -97,9 +98,10 @@ export default async function Imprimir({ params }: { params: Promise<{ uuid: str
         }))}
       />
 
-      <p className="mt-8 border-t border-slate-200 pt-3 text-center text-xs text-slate-400">
+      <p className="mt-8 flex items-center justify-center gap-1.5 border-t border-slate-200 pt-3 text-center text-xs text-slate-400">
         Relatório nº {r.uuid.slice(0, 8).toUpperCase()}
-        {empresa?.nome ? ` · ${empresa.nome}` : ""} · gerado por EmCampo
+        {empresa?.nome ? ` · ${empresa.nome}` : ""} · gerado por
+        <LogoSimbolo className="inline h-4 w-4 text-slate-500" /> EmCampo
       </p>
     </div>
   );

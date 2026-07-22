@@ -1,3 +1,4 @@
+import { LogoSimbolo } from "@/components/Logo";
 import { login } from "@/lib/actions";
 
 // Cena de fundo: campo em navy monocromático com linhas gravadas radiantes
@@ -76,9 +77,8 @@ export default async function LoginPage({
 
       <header className="relative z-10 flex items-center justify-between px-6 py-4 lg:px-10">
         <div className="flex items-center gap-2.5">
-          <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-white/10">
-            <span className="font-titulo text-sm font-extrabold text-white">EC</span>
-            <span className="absolute inset-x-0 bottom-0 h-1 bg-laranja" aria-hidden />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 p-1">
+            <LogoSimbolo className="h-full w-full text-white" />
           </div>
           <span className="font-titulo text-lg font-extrabold tracking-tight text-white">EmCampo</span>
         </div>
