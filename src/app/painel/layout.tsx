@@ -15,9 +15,13 @@ export default async function PainelLayout({ children }: { children: React.React
             <NavPainel />
           </div>
           <div className="flex items-center gap-3 text-sm">
-            <span className="rounded-full border border-white/20 px-3 py-1 text-xs text-slate-200">
+            <a
+              href="/conta"
+              className="rounded-full border border-white/20 px-3 py-1 text-xs text-slate-200 transition-colors hover:border-white/50 hover:text-white"
+              title="Minha conta"
+            >
               {session.nome}
-            </span>
+            </a>
             <BotaoSair />
           </div>
         </div>

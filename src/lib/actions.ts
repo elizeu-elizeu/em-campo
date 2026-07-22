@@ -63,6 +63,32 @@ export async function criarModelo(formData: FormData) {
   redirect(`/painel/modelos/${modelo.id}`);
 }
 
+export async function criarModeloPronto(formData: FormData) {
+  await requireUser("GESTOR");
+  const slug = String(formData.get("slug") ?? "");
+  const { MODELOS_PRONTOS } = await import("./modelos-prontos");
+  const pronto = MODELOS_PRONTOS.find((m) => m.slug === slug);
+  if (!pronto) redirect("/painel/modelos");
+  const modelo = await prisma.modelo.create({
+    data: {
+      nome: pronto.nome,
+      campos: {
+        create: pronto.campos.map((c, i) => ({
+          ordem: i,
+          tipo: c.tipo,
+          rotulo: c.rotulo,
+          obrigatorio: c.obrigatorio ?? false,
+          multipla: c.multipla ?? false,
+          noCabecalho: c.noCabecalho ?? false,
+          opcoes: c.opcoes ? JSON.stringify(c.opcoes) : null,
+        })),
+      },
+    },
+  });
+  revalidatePath("/painel/modelos");
+  redirect(`/painel/modelos/${modelo.id}`);
+}
+
 export async function renomearModelo(formData: FormData) {
   await requireUser("GESTOR");
   const id = Number(formData.get("id"));
@@ -267,6 +293,19 @@ export async function redefinirSenha(formData: FormData) {
   if (!Number.isInteger(id) || senha.length < 8) redirect("/painel/usuarios?erro=dados");
   await prisma.user.update({ where: { id }, data: { senha: await bcrypt.hash(senha, 10) } });
   revalidatePath("/painel/usuarios");
+}
+
+// ---------- Conta própria (qualquer papel) ----------
+
+export async function trocarMinhaSenha(formData: FormData) {
+  const user = await requireUser();
+  const atual = String(formData.get("atual") ?? "");
+  const nova = String(formData.get("nova") ?? "");
+  if (nova.length < 8) redirect("/conta?erro=curta");
+  const db = await prisma.user.findUnique({ where: { id: user.userId } });
+  if (!db || !(await bcrypt.compare(atual, db.senha))) redirect("/conta?erro=atual");
+  await prisma.user.update({ where: { id: user.userId }, data: { senha: await bcrypt.hash(nova, 10) } });
+  redirect("/conta?ok=1");
 }
 
 // ---------- Revisão de relatórios (gestor) ----------
