@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite não tem enum — papéis/tipos/status são strings validadas na aplicação.
+
+model User {
+  id         Int         @id @default(autoincrement())
+  nome       String
+  email      String      @unique
+  senha      String // hash bcrypt
+  papel      String // TECNICO | GESTOR
+  ativo      Boolean     @default(true)
+  relatorios Relatorio[]
+}
+
+model Cliente {
+  id         Int         @id @default(autoincrement())
+  nome       String
+  endereco   String?
+  contato    String?
+  relatorios Relatorio[]
+}
+
+model Modelo {
+  id         Int         @id @default(autoincrement())
+  nome       String
+  ativo      Boolean     @default(true)
+  campos     Campo[]
+  relatorios Relatorio[]
+}
+
+model Campo {
+  id          Int     @id @default(autoincrement())
+  modeloId    Int
+  modelo      Modelo  @relation(fields: [modeloId], references: [id], onDelete: Cascade)
+  ordem       Int
+  tipo        String // TEXTO_CURTO | TEXTO_LONGO | NUMERO | SIM_NAO | ESCOLHA | FOTO | ASSINATURA
+  rotulo      String
+  obrigatorio Boolean @default(false)
+  opcoes      String? // JSON string[] — só para tipo ESCOLHA
+  multipla    Boolean @default(false) // ESCOLHA: permite marcar várias opções
+}
+
+model Relatorio {
+  uuid            String   @id // gerado no cliente — torna o sync idempotente
+  modeloId        Int
+  modelo          Modelo   @relation(fields: [modeloId], references: [id])
+  tecnicoId       Int
+  tecnico         User     @relation(fields: [tecnicoId], references: [id])
+  clienteId       Int
+  cliente         Cliente  @relation(fields: [clienteId], references: [id])
+  data            DateTime @default(now())
+  status          String   @default("ENVIADO") // ENVIADO | DEVOLVIDO | APROVADO
+  comentarioGestor String?
+  // Snapshot autocontido [{campoId, rotulo, tipo, valor}] — imune a edições do modelo
+  respostas       String   @default("[]")
+  fotos           Foto[]
+}
+
+model Foto {
+  uuid          String    @id // gerado no cliente — reenvio de upload é idempotente
+  relatorioUuid String
+  relatorio     Relatorio @relation(fields: [relatorioUuid], references: [uuid], onDelete: Cascade)
+  campoId       Int? // null = foto avulsa do relatório
+  arquivo       String // nome do arquivo em public/uploads/
+  legenda       String?
+}
