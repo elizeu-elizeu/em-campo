@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { registrarEvento } from "@/lib/eventos";
 import { getUsuarioAtivo } from "@/lib/session";
 import { TIPOS_CAMPO, type Resposta, type TipoCampo } from "@/lib/tipos";
 
@@ -29,10 +30,12 @@ export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") return new NextResponse("Corpo inválido", { status: 400 });
 
-  const { uuid, modeloId, clienteId, data, respostas } = body as Record<string, unknown>;
+  const { uuid, modeloId, clienteId, data, respostas, agendamentoId } = body as Record<string, unknown>;
   if (typeof uuid !== "string" || !UUID_RE.test(uuid)) return new NextResponse("uuid inválido", { status: 400 });
   if (typeof modeloId !== "number" || typeof clienteId !== "number")
     return new NextResponse("modeloId/clienteId inválidos", { status: 400 });
+  if (agendamentoId !== undefined && !Number.isInteger(agendamentoId))
+    return new NextResponse("agendamentoId inválido", { status: 400 });
   const dataDate = typeof data === "string" ? new Date(data) : null;
   if (!dataDate || isNaN(dataDate.getTime())) return new NextResponse("data inválida", { status: 400 });
   if (!Array.isArray(respostas) || respostas.length > 200)
@@ -92,6 +95,16 @@ export async function POST(req: Request) {
     // Correção de DEVOLVIDO ou retry: atualiza respostas e volta para ENVIADO.
     update: { respostas: respostasJson, status: "ENVIADO" },
   });
+
+  // Atendimento de serviço agendado: marca como concluído (idempotente — só sai de ABERTO)
+  if (typeof agendamentoId === "number") {
+    await prisma.agendamento.updateMany({
+      where: { id: agendamentoId, tecnicoId: user.userId, status: "ABERTO" },
+      data: { status: "CONCLUIDO", relatorioUuid: uuid },
+    });
+  }
+
+  await registrarEvento(user.userId, existente ? "reenviou relatório" : "enviou relatório", uuid.slice(0, 8));
 
   return NextResponse.json({ ok: true });
 }

@@ -36,6 +36,16 @@ export type CampoDef = {
 export type ModeloDef = { id: number; nome: string; campos: CampoDef[] };
 export type ClienteDef = { id: number; nome: string; endereco: string | null };
 
+// Serviço agendado pelo gestor, entregue ao app do técnico com o modelo completo
+// embutido (snapshot) — funciona offline mesmo se o modelo for desativado depois.
+export type AgendamentoDef = {
+  id: number;
+  data: string; // ISO
+  observacao: string | null;
+  cliente: ClienteDef;
+  modelo: ModeloDef;
+};
+
 // valor: string | number | boolean | string[] (ESCOLHA multipla) | null (FOTO fica null; fotos são entidades próprias)
 // obs: observação livre do técnico sobre o item; fotos de evidência ficam em Foto.campoId (qualquer tipo de campo)
 // cab: snapshot da flag "destacar no cabeçalho" do campo na época do preenchimento
@@ -59,6 +69,7 @@ export type Rascunho = {
   criadoEm: string; // ISO
   valores: Record<number, unknown>; // campoId -> valor
   obsPorCampo?: Record<number, string>; // campoId -> observação (opcional; rascunhos antigos não têm)
+  agendamentoId?: number; // rascunho iniciado a partir de um serviço agendado
   fotos: FotoLocal[];
   estado: "RASCUNHO" | "PENDENTE";
   erroEnvio?: string;
@@ -70,6 +81,7 @@ export type SyncPayload = {
   clienteId: number;
   data: string; // ISO
   respostas: Resposta[];
+  agendamentoId?: number; // marca o agendamento como concluído no servidor
 };
 
 export type RelatorioResumo = {

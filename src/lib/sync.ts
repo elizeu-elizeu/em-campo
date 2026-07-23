@@ -10,8 +10,8 @@ export async function atualizarCatalogo(): Promise<boolean> {
   try {
     const res = await fetch("/api/bootstrap", { cache: "no-store" });
     if (!res.ok) return false;
-    const { modelos, clientes, config } = await res.json();
-    await salvarCatalogo(modelos, clientes, config);
+    const { modelos, clientes, config, agendamentos } = await res.json();
+    await salvarCatalogo(modelos, clientes, config, agendamentos);
     return true;
   } catch {
     return false; // offline — segue com o catálogo local
@@ -25,6 +25,7 @@ async function enviarRascunho(r: Rascunho): Promise<void> {
     clienteId: r.clienteId,
     data: r.criadoEm,
     respostas: montarRespostas(r.modelo, r.valores, r.obsPorCampo ?? {}),
+    ...(r.agendamentoId ? { agendamentoId: r.agendamentoId } : {}),
   };
 
   const res = await fetch("/api/sync", {
@@ -48,8 +49,7 @@ async function enviarRascunho(r: Rascunho): Promise<void> {
   await removerRascunho(r.uuid);
 }
 
-/** Tenta enviar todos os pendentes. Retorna quantos foram e quantos falharam. */
-export async function sincronizarPendentes(): Promise<{ enviados: number; falhas: number }> {
+async function executarSincronizacao(): Promise<{ enviados: number; falhas: number }> {
   let enviados = 0;
   let falhas = 0;
   const pendentes = (await listarRascunhos()).filter((r) => r.estado === "PENDENTE");
@@ -63,4 +63,15 @@ export async function sincronizarPendentes(): Promise<{ enviados: number; falhas
     }
   }
   return { enviados, falhas };
+}
+
+// Serializa execuções concorrentes (submit do rascunho + AutoSync reagindo ao mesmo
+// evento) para o mesmo pendente não ser POSTado duas vezes ao /api/sync.
+let filaSync: Promise<unknown> = Promise.resolve();
+
+/** Tenta enviar todos os pendentes. Retorna quantos foram e quantos falharam. */
+export function sincronizarPendentes(): Promise<{ enviados: number; falhas: number }> {
+  const execucao = filaSync.then(executarSincronizacao);
+  filaSync = execucao.catch(() => {});
+  return execucao;
 }

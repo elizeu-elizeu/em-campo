@@ -3,7 +3,7 @@
 // Armazenamento local do técnico: catálogo (modelos/clientes), rascunhos e cache de enviados.
 
 import { openDB, type IDBPDatabase } from "idb";
-import type { ClienteDef, ModeloDef, Rascunho, RelatorioResumo } from "./tipos";
+import type { AgendamentoDef, ClienteDef, ModeloDef, Rascunho, RelatorioResumo } from "./tipos";
 
 let dbPromise: Promise<IDBPDatabase> | null = null;
 
@@ -19,11 +19,21 @@ function db() {
 
 export type ConfigApp = { exigirFoto: boolean };
 
-export async function salvarCatalogo(modelos: ModeloDef[], clientes: ClienteDef[], config?: ConfigApp) {
+export async function salvarCatalogo(
+  modelos: ModeloDef[],
+  clientes: ClienteDef[],
+  config?: ConfigApp,
+  agendamentos?: AgendamentoDef[]
+) {
   const d = await db();
   await d.put("catalogo", modelos, "modelos");
   await d.put("catalogo", clientes, "clientes");
   if (config) await d.put("catalogo", config, "config");
+  if (agendamentos) await d.put("catalogo", agendamentos, "agendamentos");
+}
+
+export async function lerAgendamentos(): Promise<AgendamentoDef[]> {
+  return ((await (await db()).get("catalogo", "agendamentos")) as AgendamentoDef[] | undefined) ?? [];
 }
 
 export async function lerConfig(): Promise<ConfigApp | null> {

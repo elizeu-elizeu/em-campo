@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { lerEnviadosCache, listarRascunhos, salvarEnviadosCache } from "@/lib/idb";
-import type { Rascunho, RelatorioResumo } from "@/lib/tipos";
+import { lerAgendamentos, lerEnviadosCache, listarRascunhos, salvarEnviadosCache, salvarRascunho } from "@/lib/idb";
+import type { AgendamentoDef, Rascunho, RelatorioResumo } from "@/lib/tipos";
 
 const CHIP: Record<RelatorioResumo["status"], string> = {
   ENVIADO: "bg-info-bg text-info",
@@ -26,11 +27,17 @@ function dataCurta(iso: string) {
 }
 
 export default function CampoHome() {
+  const router = useRouter();
   const [rascunhos, setRascunhos] = useState<Rascunho[]>([]);
+  const [agendamentos, setAgendamentos] = useState<AgendamentoDef[]>([]);
   const [enviados, setEnviados] = useState<RelatorioResumo[]>([]);
 
   const carregar = useCallback(async () => {
-    setRascunhos(await listarRascunhos());
+    const locais = await listarRascunhos();
+    setRascunhos(locais);
+    // agendamento com rascunho já iniciado aparece na seção "No aparelho"
+    const iniciados = new Set(locais.map((r) => r.agendamentoId).filter(Boolean));
+    setAgendamentos((await lerAgendamentos()).filter((a) => !iniciados.has(a.id)));
     try {
       const res = await fetch("/api/meus-relatorios", { cache: "no-store" });
       if (!res.ok) throw new Error();
@@ -48,6 +55,22 @@ export default function CampoHome() {
     return () => window.removeEventListener("sync-concluido", carregar);
   }, [carregar]);
 
+  async function iniciarAgendado(a: AgendamentoDef) {
+    const uuid = crypto.randomUUID();
+    await salvarRascunho({
+      uuid,
+      modelo: a.modelo, // snapshot embutido no agendamento — funciona offline
+      clienteId: a.cliente.id,
+      clienteNome: a.cliente.nome,
+      criadoEm: new Date().toISOString(),
+      valores: {},
+      fotos: [],
+      estado: "RASCUNHO",
+      agendamentoId: a.id,
+    });
+    router.push(`/campo/rascunho/${uuid}`);
+  }
+
   return (
     <div className="space-y-6">
       <Link
@@ -56,6 +79,36 @@ export default function CampoHome() {
       >
         + Novo relatório
       </Link>
+
+      {agendamentos.length > 0 && (
+        <section>
+          <h2 className="mb-2 text-xs font-bold uppercase tracking-[0.12em] text-texto-sec">
+            Sua agenda
+          </h2>
+          <ul className="space-y-2">
+            {agendamentos.map((a) => (
+              <li key={a.id} className="cartao border-l-4 border-marinho-claro p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-medium text-slate-800">{a.modelo.nome}</span>
+                  <span className="text-sm tabular-nums text-texto-sec">
+                    {new Date(a.data).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })}{" "}
+                    {new Date(a.data).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
+                  </span>
+                </div>
+                <p className="text-sm text-texto-sec">{a.cliente.nome}</p>
+                {a.cliente.endereco && <p className="text-xs text-slate-500">{a.cliente.endereco}</p>}
+                {a.observacao && <p className="mt-1 text-sm text-slate-600">{a.observacao}</p>}
+                <button
+                  onClick={() => iniciarAgendado(a)}
+                  className="btn-secundario mt-3 w-full rounded-lg p-2.5 text-sm"
+                >
+                  Iniciar relatório
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {rascunhos.length > 0 && (
         <section>

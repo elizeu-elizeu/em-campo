@@ -7,6 +7,7 @@ import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "./db";
+import { registrarEvento } from "./eventos";
 import { extPorConteudo } from "./imagem";
 import { getSession, requireUser } from "./session";
 import { TIPOS_CAMPO, type TipoCampo } from "./tipos";
@@ -248,7 +249,7 @@ export async function criarCliente(formData: FormData) {
 }
 
 export async function criarUsuario(formData: FormData) {
-  await requireUser("GESTOR");
+  const gestorAtual = await requireUser("GESTOR");
   const nome = String(formData.get("nome") ?? "").trim().slice(0, 200);
   const email = String(formData.get("email") ?? "").trim().toLowerCase().slice(0, 200);
   const senha = String(formData.get("senha") ?? "");
@@ -262,6 +263,7 @@ export async function criarUsuario(formData: FormData) {
   } catch {
     redirect("/painel/usuarios?erro=email"); // e-mail já cadastrado
   }
+  await registrarEvento(gestorAtual.userId, "criou usuário", `${nome} (${papel.toLowerCase()})`);
   revalidatePath("/painel/usuarios");
 }
 
@@ -270,7 +272,10 @@ export async function alternarUsuarioAtivo(formData: FormData) {
   const id = Number(formData.get("id"));
   if (id === session.userId) redirect("/painel/usuarios"); // não se auto-desativa
   const user = await prisma.user.findUnique({ where: { id } });
-  if (user) await prisma.user.update({ where: { id }, data: { ativo: !user.ativo } });
+  if (user) {
+    await prisma.user.update({ where: { id }, data: { ativo: !user.ativo } });
+    await registrarEvento(session.userId, user.ativo ? "desativou usuário" : "reativou usuário", user.nome);
+  }
   revalidatePath("/painel/usuarios");
 }
 
@@ -280,21 +285,60 @@ export async function alternarPapel(formData: FormData) {
   if (id === session.userId) redirect("/painel/usuarios"); // não rebaixa a si mesmo
   const user = await prisma.user.findUnique({ where: { id } });
   if (user) {
-    await prisma.user.update({
-      where: { id },
-      data: { papel: user.papel === "GESTOR" ? "TECNICO" : "GESTOR" },
-    });
+    const novoPapel = user.papel === "GESTOR" ? "TECNICO" : "GESTOR";
+    await prisma.user.update({ where: { id }, data: { papel: novoPapel } });
+    await registrarEvento(session.userId, "alterou papel", `${user.nome} → ${novoPapel.toLowerCase()}`);
   }
   revalidatePath("/painel/usuarios");
 }
 
 export async function redefinirSenha(formData: FormData) {
-  await requireUser("GESTOR");
+  const gestor = await requireUser("GESTOR");
   const id = Number(formData.get("id"));
   const senha = String(formData.get("senha") ?? "");
   if (!Number.isInteger(id) || senha.length < 8) redirect("/painel/usuarios?erro=dados");
+  const alvo = await prisma.user.findUnique({ where: { id } });
   await prisma.user.update({ where: { id }, data: { senha: await bcrypt.hash(senha, 10) } });
+  await registrarEvento(gestor.userId, "redefiniu senha", alvo?.nome ?? `usuário ${id}`);
   revalidatePath("/painel/usuarios");
+}
+
+// ---------- Agenda (gestor) ----------
+
+export async function criarAgendamento(formData: FormData) {
+  const user = await requireUser("GESTOR");
+  const clienteId = Number(formData.get("clienteId"));
+  const modeloId = Number(formData.get("modeloId"));
+  const tecnicoId = Number(formData.get("tecnicoId"));
+  const data = new Date(String(formData.get("data") ?? ""));
+  const observacao = String(formData.get("observacao") ?? "").trim().slice(0, 500) || null;
+
+  if (!Number.isInteger(clienteId) || !Number.isInteger(modeloId) || !Number.isInteger(tecnicoId) || isNaN(data.getTime())) {
+    redirect("/painel/agenda?erro=dados");
+  }
+  const [cliente, modelo, tecnico] = await Promise.all([
+    prisma.cliente.findUnique({ where: { id: clienteId } }),
+    prisma.modelo.findUnique({ where: { id: modeloId } }),
+    prisma.user.findUnique({ where: { id: tecnicoId } }),
+  ]);
+  if (!cliente || !modelo || !tecnico || tecnico.papel !== "TECNICO" || !tecnico.ativo) {
+    redirect("/painel/agenda?erro=dados");
+  }
+
+  await prisma.agendamento.create({ data: { clienteId, modeloId, tecnicoId, data, observacao } });
+  await registrarEvento(user.userId, "agendou serviço", `${modelo.nome} · ${cliente.nome} · ${tecnico.nome}`);
+  revalidatePath("/painel/agenda");
+}
+
+export async function cancelarAgendamento(formData: FormData) {
+  const user = await requireUser("GESTOR");
+  const id = Number(formData.get("id"));
+  const ag = await prisma.agendamento.findUnique({ where: { id }, include: { cliente: true, modelo: true } });
+  if (ag && ag.status === "ABERTO") {
+    await prisma.agendamento.update({ where: { id }, data: { status: "CANCELADO" } });
+    await registrarEvento(user.userId, "cancelou agendamento", `${ag.modelo.nome} · ${ag.cliente.nome}`);
+  }
+  revalidatePath("/painel/agenda");
 }
 
 // ---------- Conta própria (qualquer papel) ----------
@@ -313,40 +357,44 @@ export async function trocarMinhaSenha(formData: FormData) {
 // ---------- Revisão de relatórios (gestor) ----------
 
 export async function aprovarRelatorio(formData: FormData) {
-  await requireUser("GESTOR");
+  const user = await requireUser("GESTOR");
   const uuid = String(formData.get("uuid") ?? "");
-  await prisma.relatorio.updateMany({
+  const alterados = await prisma.relatorio.updateMany({
     where: { uuid, status: { in: ["ENVIADO", "DEVOLVIDO"] } },
     data: { status: "APROVADO" },
   });
+  if (alterados.count > 0) await registrarEvento(user.userId, "aprovou relatório", uuid.slice(0, 8));
   revalidatePath("/painel");
   revalidatePath(`/painel/relatorio/${uuid}`);
 }
 
 export async function gerarLinkPublico(formData: FormData) {
-  await requireUser("GESTOR");
+  const user = await requireUser("GESTOR");
   const uuid = String(formData.get("uuid") ?? "");
   const token = randomBytes(9).toString("base64url"); // 12 caracteres, imprevisível
   await prisma.relatorio.update({ where: { uuid }, data: { linkPublico: token } });
+  await registrarEvento(user.userId, "gerou link público", uuid.slice(0, 8));
   revalidatePath(`/painel/relatorio/${uuid}`);
 }
 
 export async function revogarLinkPublico(formData: FormData) {
-  await requireUser("GESTOR");
+  const user = await requireUser("GESTOR");
   const uuid = String(formData.get("uuid") ?? "");
   await prisma.relatorio.update({ where: { uuid }, data: { linkPublico: null } });
+  await registrarEvento(user.userId, "revogou link público", uuid.slice(0, 8));
   revalidatePath(`/painel/relatorio/${uuid}`);
 }
 
 export async function devolverRelatorio(formData: FormData) {
-  await requireUser("GESTOR");
+  const user = await requireUser("GESTOR");
   const uuid = String(formData.get("uuid") ?? "");
   const comentario = String(formData.get("comentario") ?? "").trim().slice(0, 2000);
   if (!comentario) redirect(`/painel/relatorio/${uuid}?erro=comentario`);
-  await prisma.relatorio.updateMany({
+  const alterados = await prisma.relatorio.updateMany({
     where: { uuid, status: "ENVIADO" },
     data: { status: "DEVOLVIDO", comentarioGestor: comentario },
   });
+  if (alterados.count > 0) await registrarEvento(user.userId, "devolveu relatório", uuid.slice(0, 8));
   revalidatePath("/painel");
   revalidatePath(`/painel/relatorio/${uuid}`);
 }

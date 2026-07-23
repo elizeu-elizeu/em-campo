@@ -10,13 +10,15 @@ datasource db {
 // SQLite não tem enum — papéis/tipos/status são strings validadas na aplicação.
 
 model User {
-  id         Int         @id @default(autoincrement())
-  nome       String
-  email      String      @unique
-  senha      String // hash bcrypt
-  papel      String // TECNICO | GESTOR
-  ativo      Boolean     @default(true)
-  relatorios Relatorio[]
+  id           Int           @id @default(autoincrement())
+  nome         String
+  email        String        @unique
+  senha        String // hash bcrypt
+  papel        String // TECNICO | GESTOR
+  ativo        Boolean       @default(true)
+  relatorios   Relatorio[]
+  agendamentos Agendamento[]
+  eventos      Evento[]
 }
 
 // Dados da prestadora — linha única (id=1), aparece no cabeçalho dos relatórios.
@@ -38,19 +40,46 @@ model Config {
 }
 
 model Cliente {
-  id         Int         @id @default(autoincrement())
-  nome       String
-  endereco   String?
-  contato    String?
-  relatorios Relatorio[]
+  id           Int           @id @default(autoincrement())
+  nome         String
+  endereco     String?
+  contato      String?
+  relatorios   Relatorio[]
+  agendamentos Agendamento[]
 }
 
 model Modelo {
-  id         Int         @id @default(autoincrement())
-  nome       String
-  ativo      Boolean     @default(true)
-  campos     Campo[]
-  relatorios Relatorio[]
+  id           Int           @id @default(autoincrement())
+  nome         String
+  ativo        Boolean       @default(true)
+  campos       Campo[]
+  relatorios   Relatorio[]
+  agendamentos Agendamento[]
+}
+
+// Serviço agendado pelo gestor — vira relatório quando o técnico atende.
+model Agendamento {
+  id            Int      @id @default(autoincrement())
+  clienteId     Int
+  cliente       Cliente  @relation(fields: [clienteId], references: [id])
+  modeloId      Int
+  modelo        Modelo   @relation(fields: [modeloId], references: [id])
+  tecnicoId     Int
+  tecnico       User     @relation(fields: [tecnicoId], references: [id])
+  data          DateTime
+  observacao    String?
+  status        String   @default("ABERTO") // ABERTO | CONCLUIDO | CANCELADO
+  relatorioUuid String?  @unique // preenchido quando o relatório do atendimento sincroniza
+}
+
+// Trilha de auditoria: quem fez o quê e quando (exigência comum em contrato B2B).
+model Evento {
+  id     Int      @id @default(autoincrement())
+  quando DateTime @default(now())
+  userId Int
+  user   User     @relation(fields: [userId], references: [id])
+  acao   String
+  alvo   String?
 }
 
 model Campo {

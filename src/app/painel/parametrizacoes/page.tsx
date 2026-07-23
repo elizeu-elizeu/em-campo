@@ -62,6 +62,13 @@ export default async function Parametrizacoes() {
           . Técnicos só veem e editam os próprios relatórios; apenas gestores aprovam, devolvem e alteram
           modelos.
         </p>
+        <p className="mt-2">
+          Toda ação de gestão fica registrada na{" "}
+          <Link href="/painel/auditoria" className="text-marinho-claro underline">
+            trilha de auditoria
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );
