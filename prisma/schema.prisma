@@ -27,7 +27,7 @@ model Empresa {
   telefone String?
   email    String?
   endereco String?
-  logo     String? // arquivo em public/uploads/ (nome uuid.ext)
+  logo     String? // arquivo em uploads/ (nome uuid.ext), servido por /uploads/[nome]
 }
 
 // Parametrizações do app — linha única (id=1).
@@ -79,6 +79,8 @@ model Relatorio {
   comentarioGestor String?
   // Snapshot autocontido [{campoId, rotulo, tipo, valor}] — imune a edições do modelo
   respostas       String   @default("[]")
+  // Token do link público compartilhável (null = não compartilhado)
+  linkPublico     String?  @unique
   fotos           Foto[]
 }
 
@@ -87,6 +89,6 @@ model Foto {
   relatorioUuid String
   relatorio     Relatorio @relation(fields: [relatorioUuid], references: [uuid], onDelete: Cascade)
   campoId       Int? // null = foto avulsa do relatório
-  arquivo       String // nome do arquivo em public/uploads/
+  arquivo       String // nome do arquivo em uploads/ (fora de public/ — acesso só via /uploads/[nome])
   legenda       String?
 }

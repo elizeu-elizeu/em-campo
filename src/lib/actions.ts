@@ -1,5 +1,6 @@
 "use server";
 
+import { randomBytes } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import bcrypt from "bcryptjs";
@@ -206,7 +207,8 @@ export async function salvarEmpresa(formData: FormData) {
     const ext = extPorConteudo(conteudo);
     if (!ext) redirect("/painel/empresa?erro=logo");
     logo = `${crypto.randomUUID()}.${ext}`;
-    const dir = path.join(process.cwd(), "public", "uploads");
+    // Fora de public/ — em public/ o Next serviria estático, pulando a autorização de /uploads/[nome]
+    const dir = path.join(process.cwd(), "uploads");
     await mkdir(dir, { recursive: true });
     await writeFile(path.join(dir, logo), conteudo);
   }
@@ -318,6 +320,21 @@ export async function aprovarRelatorio(formData: FormData) {
     data: { status: "APROVADO" },
   });
   revalidatePath("/painel");
+  revalidatePath(`/painel/relatorio/${uuid}`);
+}
+
+export async function gerarLinkPublico(formData: FormData) {
+  await requireUser("GESTOR");
+  const uuid = String(formData.get("uuid") ?? "");
+  const token = randomBytes(9).toString("base64url"); // 12 caracteres, imprevisível
+  await prisma.relatorio.update({ where: { uuid }, data: { linkPublico: token } });
+  revalidatePath(`/painel/relatorio/${uuid}`);
+}
+
+export async function revogarLinkPublico(formData: FormData) {
+  await requireUser("GESTOR");
+  const uuid = String(formData.get("uuid") ?? "");
+  await prisma.relatorio.update({ where: { uuid }, data: { linkPublico: null } });
   revalidatePath(`/painel/relatorio/${uuid}`);
 }
 

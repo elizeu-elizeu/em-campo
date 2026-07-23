@@ -49,7 +49,8 @@ export async function POST(req: Request) {
 
   // Nome do arquivo derivado apenas do uuid validado — sem path traversal.
   const nomeArquivo = `${uuid.toLowerCase()}.${ext}`;
-  const dir = path.join(process.cwd(), "public", "uploads");
+  // Fora de public/ — em public/ o Next serviria estático, pulando a autorização de /uploads/[nome]
+  const dir = path.join(process.cwd(), "uploads");
   await mkdir(dir, { recursive: true });
   await writeFile(path.join(dir, nomeArquivo), conteudo);
 

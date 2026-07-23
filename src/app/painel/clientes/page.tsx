@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { criarCliente } from "@/lib/actions";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
@@ -32,8 +33,12 @@ export default async function Clientes() {
           </thead>
           <tbody>
             {clientes.map((c) => (
-              <tr key={c.id} className="border-b border-slate-100 last:border-0">
-                <td className="p-3 font-medium text-slate-800">{c.nome}</td>
+              <tr key={c.id} className="border-b border-slate-100 transition-colors last:border-0 hover:bg-slate-50">
+                <td className="p-3">
+                  <Link href={`/painel/clientes/${c.id}`} className="font-medium text-marinho-claro underline">
+                    {c.nome}
+                  </Link>
+                </td>
                 <td className="p-3">{c.endereco ?? "—"}</td>
                 <td className="p-3">{c.contato ?? "—"}</td>
                 <td className="p-3 tabular-nums">{c._count.relatorios}</td>

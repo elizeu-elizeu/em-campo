@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import BotaoCopiarLink from "@/components/BotaoCopiarLink";
 import RespostasView from "@/components/RespostasView";
-import { aprovarRelatorio, devolverRelatorio } from "@/lib/actions";
+import { aprovarRelatorio, devolverRelatorio, gerarLinkPublico, revogarLinkPublico } from "@/lib/actions";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/session";
 
@@ -95,6 +96,44 @@ export default async function DetalheRelatorio({
           )}
         </div>
       )}
+
+      <div className="cartao flex flex-wrap items-center gap-3 p-4">
+        <div className="min-w-52 flex-1">
+          <h2 className="text-xs font-bold uppercase tracking-[0.12em] text-texto-sec">
+            Compartilhar com o cliente
+          </h2>
+          {r.linkPublico ? (
+            <p className="text-sm text-slate-600">
+              Link ativo — quem tiver o endereço vê o relatório e as fotos, sem precisar de conta.
+            </p>
+          ) : (
+            <p className="text-sm text-slate-500">
+              Gere um link público para enviar por WhatsApp ou e-mail.
+            </p>
+          )}
+        </div>
+        {r.linkPublico ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <BotaoCopiarLink token={r.linkPublico} />
+            <Link
+              href={`/r/${r.linkPublico}`}
+              target="_blank"
+              className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700"
+            >
+              Abrir
+            </Link>
+            <form action={revogarLinkPublico}>
+              <input type="hidden" name="uuid" value={r.uuid} />
+              <button className="px-2 text-sm text-alerta underline">Revogar</button>
+            </form>
+          </div>
+        ) : (
+          <form action={gerarLinkPublico}>
+            <input type="hidden" name="uuid" value={r.uuid} />
+            <button className="btn-secundario rounded-md px-4 py-2 text-sm">Gerar link público</button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

@@ -16,16 +16,27 @@ const NOME_STATUS: Record<string, string> = {
 export default async function Painel({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string; tecnicoId?: string; clienteId?: string; modeloId?: string }>;
+  searchParams: Promise<{ status?: string; tecnicoId?: string; clienteId?: string; modeloId?: string; q?: string }>;
 }) {
   await requireUser("GESTOR");
   const f = await searchParams;
 
+  const busca = (f.q ?? "").trim().slice(0, 100);
   const where = {
     ...(f.status && ["ENVIADO", "DEVOLVIDO", "APROVADO"].includes(f.status) ? { status: f.status } : {}),
     ...(Number(f.tecnicoId) ? { tecnicoId: Number(f.tecnicoId) } : {}),
     ...(Number(f.clienteId) ? { clienteId: Number(f.clienteId) } : {}),
     ...(Number(f.modeloId) ? { modeloId: Number(f.modeloId) } : {}),
+    ...(busca
+      ? {
+          OR: [
+            { cliente: { nome: { contains: busca } } },
+            { tecnico: { nome: { contains: busca } } },
+            { modelo: { nome: { contains: busca } } },
+            { respostas: { contains: busca } }, // busca no conteúdo preenchido
+          ],
+        }
+      : {}),
   };
 
   const inicio30 = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
@@ -112,6 +123,13 @@ export default async function Painel({
       </div>
 
       <form className="cartao flex flex-wrap items-end gap-2 p-3">
+        <input
+          type="search"
+          name="q"
+          defaultValue={busca}
+          placeholder="Buscar cliente, técnico ou conteúdo…"
+          className="campo-input min-w-52 flex-1 p-2 text-sm"
+        />
         <select name="status" defaultValue={f.status ?? ""} className={selectCls}>
           <option value="">Todos os status</option>
           {Object.entries(NOME_STATUS).map(([v, n]) => (
@@ -138,6 +156,16 @@ export default async function Painel({
         </select>
         <button className="btn-secundario rounded-md px-4 py-2 text-sm">Filtrar</button>
         <Link href="/painel" className="p-2 text-sm text-slate-500 underline">Limpar</Link>
+        <a
+          href={`/api/exportar?${new URLSearchParams(
+            Object.entries({ status: f.status, tecnicoId: f.tecnicoId, clienteId: f.clienteId, modeloId: f.modeloId, q: busca })
+              .filter(([, v]) => v)
+              .map(([k, v]) => [k, String(v)])
+          ).toString()}`}
+          className="p-2 text-sm font-medium text-marinho-claro underline"
+        >
+          Exportar CSV
+        </a>
       </form>
 
       <div className="cartao overflow-x-auto">

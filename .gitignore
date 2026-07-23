@@ -35,7 +35,7 @@ yarn-error.log*
 
 # runtime local
 /prisma/dev.db*
-/public/uploads/
+/uploads/
 /public/sw.js
 /public/sw.js.map
 
